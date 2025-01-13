@@ -71,7 +71,7 @@
         <strong>Acteurs :</strong> Non disponibles
       </div>
 
-      <p class="film-detail__overview"><strong>Résumé :</strong> {{ film.overview }}</p>
+      <p class="film-detail__overview"><strong>Résumé :</strong> {{ film.translated_summary }}</p>
       <p></p>
     </div>
     

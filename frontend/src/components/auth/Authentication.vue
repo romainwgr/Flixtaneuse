@@ -1,7 +1,7 @@
 <template>
   <div class="authentication">
     <div class="auth-content">
-      <h1 class="title">Netflix</h1>
+      <h1 class="title">Flixtaneuse</h1>
 
       <SignIn 
         v-if="currentTab === 'signIn'" 
