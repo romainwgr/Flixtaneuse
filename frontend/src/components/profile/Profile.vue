@@ -95,9 +95,9 @@ export default {
   },
 };
 
-  </script>
+</script>
   
-  <style scoped>
+<style scoped>
 
   /* User profile */
 

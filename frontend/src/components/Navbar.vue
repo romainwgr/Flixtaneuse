@@ -3,12 +3,15 @@
 -->
 <template>
   <nav>
-    <a href="/"><img src="@/assets/logo_test.png" alt="logo" class="logo"></a>
+    <li class="police_flix logo">F</li>
     <div class="navlinks">
       <ul>
         <!-- Filtre les liens avec showInNavbar à true -->
         <li v-for="(link, index) in filteredLinks" :key="index">
-          <router-link :to="link.path">{{ link.name }}</router-link>
+          <router-link :to="link.path">
+            <!-- Affiche l'icône associée -->
+            <img :src="link.icon" :alt="link.name" />
+          </router-link>
         </li>
       </ul>
     </div>
@@ -16,13 +19,25 @@
 </template>
 
 <script>
+import homeIcon from '@/assets/home.svg';
+import searchIcon from '@/assets/loupe.svg';
+import profileIcon from '@/assets/profile.svg';
+
 import navigationLinks from '@/config/navigation.js';
 
 export default {
   name: 'Navbar',
   data() {
     return {
-      navigationLinks
+      navigationLinks: navigationLinks.map(link => {
+        // Associe les icônes aux liens correspondants
+        const iconMap = {
+          Accueil: homeIcon,
+          'Recherche de films': searchIcon,
+          Profil: profileIcon
+        };
+        return { ...link, icon: iconMap[link.name] || null };
+      })
     };
   },
   computed: {
@@ -48,24 +63,26 @@ nav {
 }
 
 .logo {
-  width: 75px;
-  height: 75px;
+  font-size: 50px;
+  color: #243971;
+  padding: 0;
+  margin-inline: 20px;
+  list-style: none;
 }
 
-ul {
+.navlinks ul {
   list-style: none;
   display: flex;
+  align-items: center;
   gap: 1.5em;
   margin: 0;
   padding: 0;
 }
 
-li {
-  color: white;
-  background-color: grey;
+.navlinks li {
   padding: 1em;
+  color: white;
   border-radius: 5px;
-  
 }
 
 a {
@@ -73,7 +90,15 @@ a {
   text-decoration: none;
 }
 
-a.router-link-exact-active {
-  text-decoration: underline;
+a.router-link-exact-active img {
+  opacity: 0.5;
+}
+
+.navlinks img {
+  width: 32px;
+}
+
+.navlinks img[alt="Accueil"] {
+  width: 42px;
 }
 </style>
