@@ -3,7 +3,7 @@
 -->
 <template>
   <nav>
-    <li class="police_flix logo">F</li>
+    <router-link to="/" class="police_flix logo">F</router-link>
     <div class="navlinks">
       <ul>
         <!-- Filtre les liens avec showInNavbar à true -->
