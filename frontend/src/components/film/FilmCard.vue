@@ -79,10 +79,12 @@ export default {
   font-size: 16px; /* Taille du texte */
   color: white;
   margin: 10px 0 0; /* Espacement supérieur */
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap; /* Évite que le texte prenne plusieurs lignes */
+  white-space: nowrap; /* Empêche le texte de prendre plusieurs lignes */
+  overflow: hidden; /* Cache le texte débordant */
+  text-overflow: ellipsis; /* Ajoute des points de suspension pour les titres trop longs */
+  width: 80%; 
 }
+
 
 .error {
   color: red;
