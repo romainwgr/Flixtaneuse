@@ -24,5 +24,13 @@ body {
   background-color: #1B1B1B;
   margin: 0;
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
+
+.police_flix {
+  font-family: "Lalezar", serif;
+  font-weight: 400;
+  font-style: normal;
+}
 </style>
   

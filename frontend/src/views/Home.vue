@@ -54,6 +54,10 @@ export default {
 };
 </script>
 <style >
+
+h2 {
+  color: white;
+}
 /* Conteneur principal des films */
 .film-container {
   display: flex; /* Permet l'affichage en ligne (horizontal) */

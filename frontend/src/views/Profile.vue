@@ -86,6 +86,11 @@
     </script>
     
     <style scoped>
+
+    .profile-page {
+      min-height: 55vh;
+    }
+
     .profile {
       max-width: 600px;
       margin: 0 auto;

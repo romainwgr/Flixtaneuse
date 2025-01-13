@@ -2,7 +2,7 @@
   Page de recherche
 -->
 <template>
-  <div>
+  <div class="search-view">
     <h2>Rechercher un film</h2>
     <div class="search-container">
       <input
@@ -102,6 +102,11 @@ export default {
 </script>
 
 <style scoped>
+
+.search-view {
+  min-height: 60vh;
+}
+
 .films-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
