@@ -32,14 +32,18 @@
     <!-- Indicateur de chargement -->
     <p v-if="isLoading">Recherche en cours...</p>
   </div>
+  <Footer />
 </template>
 
 <script>
 import FilmCard from "@/components/film/FilmCard.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   components: {
     FilmCard,
+    Footer
+
   },
   data() {
     return {

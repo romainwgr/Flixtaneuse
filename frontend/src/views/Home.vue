@@ -16,18 +16,23 @@
     <!-- Message d'erreur si la requête échoue -->
     <p v-if="errorMessage">{{ errorMessage }}</p>
   </div>
+  <Footer/>
+
 </template>
 
 <script>
 import FilmCard from "@/components/film/FilmCard.vue";
 import DirectorFilm from "@/components/home/DirectorFilm.vue"
 import ActorFilm from "@/components/home/ActorFilm.vue"
+import Footer from "@/components/Footer.vue";
+
 
 export default {
   components: {
     FilmCard,
     DirectorFilm,
-    ActorFilm
+    ActorFilm,
+    Footer
 
   },
   data() {
