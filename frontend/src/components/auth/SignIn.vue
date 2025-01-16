@@ -3,26 +3,31 @@
 -->
 <template>
   <div class="login-form">
+    <div class="title">
+      <h3>S'identifier</h3>
+      <hr>
+    </div>
     <form @submit.prevent="handleLogin">
       <div>
+        <label for="email">Email</label>
         <input
           type="email"
           id="email"
           v-model="formData.email"
           required
-          placeholder="Entrez votre email"
         />
       </div>
       <div>
+        <label for="password">Mot de passe</label>
         <input
           type="password"
           id="password"
           v-model="formData.password"
           required
-          placeholder="Entrez votre mot de passe"
         />
       </div>
       <button type="submit">Se connecter</button>
+      <hr>
     </form>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     <p v-if="successMessage" class="success">{{ successMessage }}</p>
@@ -74,18 +79,58 @@ export default {
 </script>
 
   <style scoped>
- 
- 
+  @import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
+
+  .lalezar-regular {
+    font-family: "Lalezar", serif;
+    font-weight: 400;
+    font-style: normal;
+  }
+
+  h3 {
+    text-align: start;
+    color: white;
+    font-family: Lalezar;
+    font-weight: 200;
+    margin-bottom: 0;
+  }
+  hr {
+    margin-top: 0;
+    width: 15%;
+  }
+  .title>hr {
+    margin-left: 0;
+    margin-bottom: 1.5em;
+  }
+  form>div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+  }
+  form>hr {
+    margin-top: 2em;
+  }
+  .login-form label {
+    margin-left: 1.5em;
+    margin-bottom: 0.2em;
+    font-family: system-ui, Roboto;
+    font-size: 14px;
+    color: white;
+    text-align: start;
+  }
   .login-form input {
-    width: 80%;
+    width: 90%;
     padding: 0.5em;
     margin-bottom: 1em;
     border: 1px solid #ccc;
     border-radius: 4px;
+    margin: auto;
   }
   .login-form button {
-    width: 85%;
+    width: 70%;
+    height: 3.5em;
     padding: 0.7em;
+    margin-top: 2em;
     background-color: #007bff;
     color: white;
     border: none;

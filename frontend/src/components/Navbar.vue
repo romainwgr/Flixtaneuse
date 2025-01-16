@@ -2,7 +2,7 @@
     Composant qui affiche la barre de navigation
 -->
 <template>
-  <nav>
+  <nav class=".navbar">
     <router-link to="/" class="police_flix logo">F</router-link>
     <div class="navlinks">
       <ul>
@@ -15,6 +15,7 @@
         </li>
       </ul>
     </div>
+  
   </nav>
 </template>
 
@@ -47,19 +48,29 @@ export default {
     }
   }
 };
+
 </script>
 
 <style scoped>
 
 nav {
-  padding: 0.5em;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height : 4.2em;
+  padding: 0.5em 0;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: space-between; 
+  align-items: center;           
+  background-color: rgba(51, 51, 51, 0);
+  z-index: 1000;
+  transition: all 0.3s ease;
 }
 
 .navlinks {
-  padding: 1em;
+  display: flex;
+  justify-content: center;  
+  margin: 0em 1em;
 }
 
 .logo {
@@ -100,5 +111,10 @@ a.router-link-exact-active img {
 
 .navlinks img[alt="Accueil"] {
   width: 42px;
+}
+
+.navbar-scrolled {
+    background-color: rgb(29, 29, 29);
+    height: 3.4em;
 }
 </style>

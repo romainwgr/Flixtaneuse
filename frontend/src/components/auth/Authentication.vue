@@ -1,28 +1,33 @@
 <template>
-  <div class="authentication">
-    <div class="auth-content">
-      <h1 class="title">Flixtaneuse</h1>
+  <div class="bg"> 
+    <div class="page">
+      <h1 class="title">FLIXTANEUSE</h1>
+      <div class="authentication">
+        <div class="auth-content">
 
-      <SignIn 
-        v-if="currentTab === 'signIn'" 
-        @authenticated="handleAuthenticated" 
-      />
-      <SignUp 
-        v-if="currentTab === 'signUp'" 
-        @registered="handleRegistered" 
-      />
+          <SignIn 
+            v-if="currentTab === 'signIn'" 
+            @authenticated="handleAuthenticated" 
+          />
+          <SignUp 
+            v-if="currentTab === 'signUp'" 
+            @registered="handleRegistered" 
+          />
+          <p class="switch-tab">
+            <span v-if="currentTab === 'signIn'">
+              Pas encore inscrit ? 
+              <a @click="currentTab = 'signUp'" href="javascript:void(0)">Inscription</a>
+            </span>
+            <span v-if="currentTab === 'signUp'">
+              Déjà inscrit ? 
+              <a @click="currentTab = 'signIn'" href="javascript:void(0)">Se connecter</a>
+            </span>
+          </p>
+        </div>
     </div>
+  </div>
 
-    <p class="switch-tab">
-      <span v-if="currentTab === 'signIn'">
-        Pas encore inscrit ? 
-        <a @click="currentTab = 'signUp'" href="javascript:void(0)">Inscription</a>
-      </span>
-      <span v-if="currentTab === 'signUp'">
-        Déjà inscrit ? 
-        <a @click="currentTab = 'signIn'" href="javascript:void(0)">Se connecter</a>
-      </span>
-    </p>
+    
   </div>
 </template>
 
@@ -55,28 +60,58 @@ export default {
 </script>
 
 <style scoped>
-.title {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 24px;
-  font-weight: bold;
-  margin-bottom: 20px;
-  color: #fff;
-}
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
 
+.lalezar-regular {
+  font-family: "Lalezar", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+.bg {
+  height: 100%;
+  display: flex; 
+  flex-direction: column; 
+  background-image: url(../../assets/auth_background.jpg);
+  background-repeat: no-repeat;
+  background-size: cover;
+  overflow: hidden; 
+  position: relative;
+}
+.bg::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(19, 16, 30, 0.93); 
+  z-index: 1; 
+}
+.page {
+  z-index: 2;
+  margin-top: 3em;
+}
+h1.title{
+  text-align: center;
+  font-family: Lalezar;
+  font-weight: 400;
+  font-size: 40px;
+  margin-bottom: 0.1em;
+  color: #243971;
+}
 .authentication {
-  max-width: 400px;
+  width: 28em;
   margin: auto;
   margin-block: 100px;
   text-align: center;
+  margin-top: 0;
 }
 
 .auth-content {
   border: 1px solid #ccc;
   padding: 20px;
   border-radius: 8px;
-  margin-bottom: 20px;
+  background-color: rgb(0, 0, 0, 0.3);
 }
 
 .switch-tab {

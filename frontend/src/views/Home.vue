@@ -62,6 +62,7 @@ export default {
 
 h2 {
   color: white;
+  margin-top: 4em;
 }
 /* Conteneur principal des films */
 .film-container {

@@ -1,43 +1,49 @@
 <template>
   <div class="signup">
     <form @submit.prevent="handleSignUp">
+      <div class="title">
+        <h3>S'inscrire</h3>
+        <hr>
+      </div>
+      
       <div>
+        <label for="name">Nom</label>
         <input
           type="text"
           id="name"
           v-model="formData.name"
           required
-          placeholder="Entrez votre nom"
         />
       </div>
       <div>
+        <label for="public_name">Pseudonyme</label>
         <input
           type="text"
           id="public_name"
           v-model="formData.public_name"
           required
-          placeholder="Entrez votre pseudonyme"
         />
       </div>
       <div>
+        <label for="email">Email</label>
         <input
           type="email"
           id="email"
           v-model="formData.email"
           required
-          placeholder="Entrez votre email"
         />
       </div>
       <div>
+        <label for="password">Mot de passe</label>
         <input
           type="password"
           id="password"
           v-model="formData.password"
           required
-          placeholder="Entrez votre mot de passe"
         />
       </div>
       <button type="submit">S'inscrire</button>
+      <hr>
     </form>
     <p v-if="successMessage" class="success">{{ successMessage }}</p>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
@@ -99,6 +105,37 @@ export default {
 </script>
 
 <style scoped>
+@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
+
+.lalezar-regular {
+  font-family: "Lalezar", serif;
+  font-weight: 400;
+  font-style: normal;
+}
+
+h3 {
+  text-align: start;
+  color: white;
+  font-family: Lalezar;
+  font-weight: 200;
+  margin-bottom: 0;
+}
+hr {
+  margin-top: 0;
+  width: 15%;
+}
+.title>hr {
+  margin-left: 0;
+  margin-bottom: 1.5em;
+}
+form>div {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1em;
+}
+form>hr {
+  margin-top: 2em;
+}
 .signup {
   display: flex;
   flex-direction: column;
@@ -106,10 +143,17 @@ export default {
   justify-content: center;
   max-width: 400px;
   margin: 0 auto;
-  padding: 20px;
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
+label {
+    margin-left: 1.5em;
+    margin-bottom: 0.2em;
+    font-family: system-ui, Roboto;
+    font-size: 14px;
+    color: white;
+    text-align: start;
+  }
 
 .signup input {
   width: 100%;
