@@ -71,7 +71,7 @@
         <strong>Acteurs :</strong> Non disponibles
       </div>
 
-      <p class="film-detail__overview"><strong>Résumé :</strong> {{ film.translated_summary }}</p>
+      <p class="film-detail__overview"><strong>Synopsis :</strong> {{ film.translated_summary }}</p>
       <p></p>
     </div>
     
@@ -233,21 +233,18 @@ export default {
 
 .film-detail {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   align-items: flex-start;
   gap: 20px;
-  width: 100%;
-  margin-top: 30px;
+  width: 90%;
+  margin: auto;
+  margin-top: 6em;
   padding: 20px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
 }
 
 .film-detail__image-container {
   display: flex;
   justify-content: center;
-  width: 100%;
+  width: 15em;
   max-width: 400px; /* Ajuste la largeur maximale de l'image */
 }
 
@@ -261,20 +258,17 @@ export default {
 }
 
 .film-detail__info {
-  display: flex;
-  flex-direction: column;
   gap: 10px;
   width: 100%;
   padding: 20px;
-  background-color: rgb(44, 44, 44);
   color: white;
-  border-radius: 15px;
 }
 
 .film-detail__title {
   font-size: 32px;
   font-weight: bold;
   margin-bottom: 10px;
+  margin-top: 0;
 }
 
 .film-detail__year,
@@ -286,6 +280,7 @@ export default {
   font-size: 16px;
   line-height: 1.6;
   word-wrap: break-word; /* Permet de ne pas couper les mots dans les détails */
+  margin-top: 1em;
 }
 
 .loading {

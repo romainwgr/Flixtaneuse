@@ -110,17 +110,16 @@ h2 {
   margin: 0;
 }
 
-/* Style personnalisé pour la barre de défilement (uniquement pour les navigateurs modernes) */
 .film-container::-webkit-scrollbar {
-  height: 8px; /* Hauteur de la barre de défilement horizontale */
+  height: 8px; 
 }
 
 .film-container::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.5); /* Couleur de la barre */
-  border-radius: 10px; /* Coins arrondis */
+  background: rgba(255, 255, 255, 0.5); 
+  border-radius: 10px; 
 }
 
 .film-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.8); /* Couleur plus visible au survol */
+  background: rgba(255, 255, 255, 0.8); 
 }
 </style>

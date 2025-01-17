@@ -107,16 +107,7 @@ export default {
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  padding: 30px;
-  color: white;
-  border: 1px solid #e0e0e0;
-  border-radius: 12px;
-  max-width: 675px;
-  margin: 40px auto;
-  margin-bottom: 100px;
-  background-color: black;
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-  font-family: 'Arial', sans-serif;
+  margin-top: 6em;
 }
 
 .profile-picture img {
@@ -141,6 +132,19 @@ export default {
   color: white;
 }
 
+.logout button {
+  margin: 7em 0;
+  border: none;
+  width: 12.5em;
+  height: 3.125em;
+  border-radius: 5px;
+}
+
+.logout button:hover {
+  cursor: pointer;
+  background-color: rgb(202, 16, 19);
+}
+
 /* Movie profile section */
 
 .wrapper {
@@ -158,9 +162,9 @@ export default {
 .movie-profile-section h2 {
   font-size: 20px;
   font-weight: bold;
-  text-align: center;
+  margin-left: 2em;
   margin-bottom: 50px;
-  color: #007bff;
+  color: #1c5ca7;
 }
 
 .movie-profile-section p {

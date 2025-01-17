@@ -133,7 +133,7 @@ a.router-link-exact-active img:not(.logo img){
 }
 
 .navbar.scrolled {
-    background-color: rgb(29, 29, 29);
+    background-color: #110c16;
     height: 2.8em;
 }
 </style>

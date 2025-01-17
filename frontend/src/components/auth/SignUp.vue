@@ -1,11 +1,10 @@
 <template>
   <div class="signup">
+    <div class="title">
+      <h3>S'inscrire</h3>
+      <hr>
+    </div>
     <form @submit.prevent="handleSignUp">
-      <div class="title">
-        <h3>S'inscrire</h3>
-        <hr>
-      </div>
-      
       <div>
         <label for="name">Nom</label>
         <input
@@ -113,12 +112,15 @@ export default {
   font-style: normal;
 }
 
+
+
 h3 {
   text-align: start;
   color: white;
   font-family: Lalezar;
   font-weight: 200;
   margin-bottom: 0;
+  margin-top: 0;
 }
 hr {
   margin-top: 0;
@@ -134,10 +136,9 @@ form>div {
   margin-bottom: 1em;
 }
 form>hr {
-  margin-top: 2em;
+  margin-top: 1em;
 }
 .signup {
-  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
@@ -146,7 +147,7 @@ form>hr {
   border-radius: 8px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
-label {
+.signup label {
     margin-left: 1.5em;
     margin-bottom: 0.2em;
     font-family: system-ui, Roboto;
@@ -154,34 +155,25 @@ label {
     color: white;
     text-align: start;
   }
-
-.signup input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
-.signup input:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-.signup button {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
+  .signup input {
+    width: 90%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: auto;
+  }
+  .signup button {
+    width: 70%;
+    height: 3.5em;
+    padding: 0.7em;
+    margin-top: 1em;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+  }
 
 .signup button:hover {
   background-color: #0056b3;

@@ -93,6 +93,7 @@ export default {
     font-family: Lalezar;
     font-weight: 200;
     margin-bottom: 0;
+    margin-top: 0;
   }
   hr {
     margin-top: 0;
@@ -108,7 +109,7 @@ export default {
     margin-bottom: 1em;
   }
   form>hr {
-    margin-top: 2em;
+    margin-top: 1em;
   }
   .login-form label {
     margin-left: 1.5em;
@@ -130,7 +131,7 @@ export default {
     width: 70%;
     height: 3.5em;
     padding: 0.7em;
-    margin-top: 2em;
+    margin-top: 1em;
     background-color: #007bff;
     color: white;
     border: none;

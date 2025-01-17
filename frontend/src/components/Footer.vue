@@ -71,6 +71,7 @@ main {
   text-align: center;
   width: 100%;
   margin-top: 20px;
+  background-color: #110c16;
 }
 
 .partie_haute {
