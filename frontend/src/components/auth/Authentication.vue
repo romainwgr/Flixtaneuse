@@ -68,7 +68,7 @@ export default {
   font-style: normal;
 }
 .bg {
-  height: 100%;
+  height: 100vh;
   display: flex; 
   flex-direction: column; 
   background-image: url(../../assets/auth_background.jpg);
