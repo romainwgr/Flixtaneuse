@@ -1,0 +1,64 @@
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%; 
+}
+  
+#app {
+    display: flex;
+    flex-direction: column;
+    min-height: 100%;
+}
+  
+main {
+    flex: 1;
+}
+  
+.footer {
+    color: #fff;
+    text-align: center;
+    width: 100%;
+    margin-top: 20px;
+    background-color: #110c16;
+}
+  
+.partie_haute {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+  
+.start {
+    font-size: 1em;
+    margin-inline: 100px;
+}
+  
+.start .police_flix {
+    color: #243971;
+    font-size: 3em;
+    margin: 0;
+    font-family: Lalezar;
+}
+  
+.end {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 100px;
+    margin-inline: 100px;
+    text-align: start;
+}
+  
+.end div ul {
+    padding: 0;
+}
+  
+.end div ul li {
+    list-style: none;
+}
+  
+.partie_basse {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}

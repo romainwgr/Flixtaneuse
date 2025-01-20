@@ -1,7 +1,9 @@
 <template>
   <div>
+    <div class="title">
+      <h1 class="logo-title">FlixTaneuse</h1>
+    </div>
     <h2>Liste des films</h2>
-    <!-- Liste horizontale de films avec défilement -->
     <div class="film-container">
       <FilmCard
         v-for="film in films"
@@ -59,67 +61,6 @@ export default {
 };
 </script>
 <style >
-
-h2 {
-  color: white;
-  margin-top: 4em;
-}
-/* Conteneur principal des films */
-.film-container {
-  display: flex; /* Permet l'affichage en ligne (horizontal) */
-  flex-wrap: nowrap; /* Empêche les films de passer à la ligne */
-  overflow-x: auto; /* Active le défilement horizontal */
-  gap: 20px; /* Espacement entre les films */
-  padding: 10px; /* Espacement autour des films */
-  scroll-behavior: smooth; /* Défilement fluide */
-  scrollbar-width: thin; /* Minimise l'apparence de la barre de défilement */
-}
-
-/* Style de la carte de film */
-.film-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  text-decoration: none;
-  color: inherit;
-  width: 200px; /* Largeur fixe pour chaque carte */
-  transition: transform 0.3s ease; /* Zoom au survol */
-}
-
-.film-card:hover {
-  transform: scale(1.05); /* Zoom léger au survol */
-}
-
-/* Image de la carte de film */
-.film-card__image {
-  width: 100%; /* L'image occupe toute la largeur */
-  height: 300px; /* Hauteur fixe pour l'image */
-  border-radius: 8px; /* Coins arrondis */
-  object-fit: cover; /* Ajuste l'image dans le conteneur sans la déformer */
-  margin-bottom: 10px; /* Espace entre l'image et le titre */
-}
-
-/* Titre de la carte de film */
-.film-card__title {
-  font-size: 16px; /* Taille du texte */
-  color: white; /* Couleur blanche */
-  text-overflow: ellipsis; /* Tronque le texte trop long */
-  overflow: hidden;
-  white-space: nowrap; /* Évite les retours à la ligne */
-  margin: 0;
-}
-
-.film-container::-webkit-scrollbar {
-  height: 8px; 
-}
-
-.film-container::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.5); 
-  border-radius: 10px; 
-}
-
-.film-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.8); 
-}
+  @import "@/css/logo.css";
+  @import "@/css/views/Home.css";
 </style>

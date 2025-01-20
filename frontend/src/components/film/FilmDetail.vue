@@ -15,13 +15,11 @@
 
     <!-- Section Infos -->
     <div class="film-detail__info">
-
-      <!-- Affiche le bouton "Like" seulement si l'utilisateur est connecté -->
+    
+      <h2 class="film-detail__title">{{ film.original_title }}</h2>
       <button v-if="isAuthenticated" @click="toggleLike">
         {{ isLiked ? "🧡" : "🩶" }}
       </button>
-    
-      <h2 class="film-detail__title">{{ film.original_title }}</h2>
       <p class="film-detail__year"><strong>Année de sortie :</strong> {{ film.release_date?.split('-')[0] }}</p>
       <p class="film-detail__genre">
         <strong>Genres : </strong>
@@ -36,13 +34,10 @@
         <strong>Réalisateurs :</strong>
         <table class="detail-table">
           <thead>
-            <tr>
-              <th>Nom</th>
-            </tr>
           </thead>
           <tbody>
             <tr v-for="directorEntry in film.directors" :key="directorEntry.director.id">
-              <td>{{ directorEntry.director.name }}</td>
+              <td>- {{ directorEntry.director.name }}</td>
             </tr>
           </tbody>
         </table>
@@ -56,13 +51,10 @@
         <strong>Acteurs :</strong>
         <table class="detail-table">
           <thead>
-            <tr>
-              <th>Nom</th>
-            </tr>
           </thead>
           <tbody>
             <tr v-for="actorEntry in film.actors" :key="actorEntry.actor.id">
-              <td>{{ actorEntry.actor.name }}</td>
+              <td>- {{ actorEntry.actor.name }}</td>
             </tr>
           </tbody>
         </table>
@@ -71,7 +63,7 @@
         <strong>Acteurs :</strong> Non disponibles
       </div>
 
-      <p class="film-detail__overview"><strong>Synopsis :</strong> {{ film.translated_summary }}</p>
+      <p class="film-detail__overview"><strong>Synopsis :</strong> <br>{{ film.translated_summary }}</p>
       <p></p>
     </div>
     
@@ -203,90 +195,5 @@ export default {
 </script>
 
 <style scoped>
-.detail-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin-top: 10px;
-  color: white;
-}
-
-.detail-table th,
-.detail-table td {
-  border: 1px solid #ccc;
-  padding: 8px 10px;
-  text-align: left;
-}
-
-.detail-table th {
-  background-color: #444;
-  color: white;
-  font-weight: bold;
-}
-
-.detail-table tbody tr:nth-child(even) {
-  background-color: #333;
-}
-
-.detail-table tbody tr:nth-child(odd) {
-  background-color: #222;
-}
-
-.film-detail {
-  display: flex;
-  align-items: flex-start;
-  gap: 20px;
-  width: 90%;
-  margin: auto;
-  margin-top: 6em;
-  padding: 20px;
-}
-
-.film-detail__image-container {
-  display: flex;
-  justify-content: center;
-  width: 15em;
-  max-width: 400px; /* Ajuste la largeur maximale de l'image */
-}
-
-.film-detail__image {
-  width: 100%;
-  height: auto;
-  max-height: 500px;
-  object-fit: cover;
-  border-radius: 10px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-}
-
-.film-detail__info {
-  gap: 10px;
-  width: 100%;
-  padding: 20px;
-  color: white;
-}
-
-.film-detail__title {
-  font-size: 32px;
-  font-weight: bold;
-  margin-bottom: 10px;
-  margin-top: 0;
-}
-
-.film-detail__year,
-.film-detail__genre,
-.film-detail__runtime,
-.film-detail__director,
-.film-detail__actors,
-.film-detail__overview {
-  font-size: 16px;
-  line-height: 1.6;
-  word-wrap: break-word; /* Permet de ne pas couper les mots dans les détails */
-  margin-top: 1em;
-}
-
-.loading {
-  text-align: center;
-  margin-top: 50px;
-  font-size: 20px;
-  color: #666;
-}
+  @import "@/css/composents/film/FilmDetail.css";
 </style>

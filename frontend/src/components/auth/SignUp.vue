@@ -1,5 +1,5 @@
 <template>
-  <div class="signup">
+  <div class="sign">
     <div class="title">
       <h3>S'inscrire</h3>
       <hr>
@@ -104,111 +104,6 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
-
-.lalezar-regular {
-  font-family: "Lalezar", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-
-
-
-h3 {
-  text-align: start;
-  color: white;
-  font-family: Lalezar;
-  font-weight: 200;
-  margin-bottom: 0;
-  margin-top: 0;
-}
-hr {
-  margin-top: 0;
-  width: 15%;
-}
-.title>hr {
-  margin-left: 0;
-  margin-bottom: 1.5em;
-}
-form>div {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 1em;
-}
-form>hr {
-  margin-top: 1em;
-}
-.signup {
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 400px;
-  margin: 0 auto;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-.signup label {
-    margin-left: 1.5em;
-    margin-bottom: 0.2em;
-    font-family: system-ui, Roboto;
-    font-size: 14px;
-    color: white;
-    text-align: start;
-  }
-  .signup input {
-    width: 90%;
-    padding: 0.5em;
-    margin-bottom: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin: auto;
-  }
-  .signup button {
-    width: 70%;
-    height: 3.5em;
-    padding: 0.7em;
-    margin-top: 1em;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-
-.signup button:hover {
-  background-color: #0056b3;
-}
-
-.success,
-.error {
-  margin-top: 15px;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.success {
-  color: green;
-}
-
-.error {
-  color: red;
-}
-
-/* Réactivité pour les petits écrans */
-@media (max-width: 600px) {
-  .signup {
-    padding: 15px;
-  }
-
-  .signup input {
-    font-size: 14px;
-    padding: 8px;
-  }
-
-  .signup button {
-    font-size: 14px;
-    padding: 10px;
-  }
-}
+  @import "@/css/police.css";
+  @import "@/css/composents/auth/Sign.css";
 </style>

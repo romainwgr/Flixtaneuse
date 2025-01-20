@@ -1,0 +1,50 @@
+.film-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    text-align: center;
+    border: none;
+    width: 200px; 
+    text-decoration: none;
+    color: inherit;
+    transition: transform 0.3s ease;
+} 
+
+.film-card:hover {
+    transform: scale(1.05); 
+}
+
+.film-card__image-container {
+    width: 150px; 
+    height: 225px; 
+    overflow: hidden;
+    border-radius: 8px; 
+    margin-bottom: 10px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #000; 
+}
+
+.film-card__image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+}
+
+.film-card__title {
+    font-size: 16px; 
+    color: white;
+    margin: 10px 0 0; 
+    white-space: nowrap; 
+    overflow: hidden; 
+    text-overflow: ellipsis; 
+    width: 80%; 
+}
+
+.error {
+    color: red;
+    text-align: center;
+    font-size: 14px;
+}

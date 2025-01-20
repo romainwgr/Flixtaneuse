@@ -34,12 +34,5 @@ export default {
 </script>
 
 <style scoped>
-.custom-button {
-  padding: 10px 20px;
-  border: none;
-  border-radius: 5px;
-  font-size: 16px;
-  cursor: pointer;
-  transition: background-color 0.3s, color 0.3s;
-}
+  @import "@/css/composents/CustomButton.css";
 </style>

@@ -40,56 +40,6 @@ export default {
 </script>
 
 <style scoped>
-.film-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  text-align: center;
-  border: none;
-  width: 200px; 
-  text-decoration: none;
-  color: inherit;
-  transition: transform 0.3s ease;
-} 
-
-.film-card:hover {
-  transform: scale(1.05); /* Zoom subtil au survol */
-}
-
-.film-card__image-container {
-  width: 150px; /* Largeur fixe pour toutes les images */
-  height: 225px; /* Hauteur fixe pour toutes les images */
-  overflow: hidden; /* Cache les parties débordantes de l'image */
-  border-radius: 8px; /* Coins arrondis */
-  margin-bottom: 10px; /* Espace entre l'image et le titre */
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background-color: #000; /* Couleur de fond au cas où l'image ne charge pas */
-}
-
-.film-card__image {
-  width: 100%;
-  height: 100%;
-  object-fit: cover; /* L'image couvre toute la zone sans déformer */
-}
-
-.film-card__title {
-  font-size: 16px; /* Taille du texte */
-  color: white;
-  margin: 10px 0 0; /* Espacement supérieur */
-  white-space: nowrap; /* Empêche le texte de prendre plusieurs lignes */
-  overflow: hidden; /* Cache le texte débordant */
-  text-overflow: ellipsis; /* Ajoute des points de suspension pour les titres trop longs */
-  width: 80%; 
-}
-
-
-.error {
-  color: red;
-  text-align: center;
-  font-size: 14px;
-}
-
+  @import "@/css/police.css";
+  @import "@/css/composents/film/FilmCard.css";
 </style>

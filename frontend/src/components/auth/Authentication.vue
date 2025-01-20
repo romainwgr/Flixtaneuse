@@ -1,7 +1,7 @@
 <template>
   <div class="bg"> 
     <div class="page">
-      <h1 class="title">FLIXTANEUSE</h1>
+      <h1 class="logo-title">FLIXTANEUSE</h1>
       <div class="authentication">
         <div class="auth-content">
 
@@ -60,72 +60,7 @@ export default {
 </script>
 
 <style scoped>
-@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
-
-.lalezar-regular {
-  font-family: "Lalezar", serif;
-  font-weight: 400;
-  font-style: normal;
-}
-.bg {
-  height: 100vh;
-  display: flex; 
-  flex-direction: column; 
-  background-image: url(../../assets/auth_background.jpg);
-  background-repeat: no-repeat;
-  background-size: cover;
-  overflow: hidden; 
-  position: relative;
-}
-.bg::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(19, 16, 30, 0.93); 
-  z-index: 1; 
-}
-.page {
-  z-index: 2;
-  margin-top: 3em;
-}
-h1.title{
-  text-align: center;
-  font-family: Lalezar;
-  font-weight: 400;
-  font-size: 40px;
-  margin-bottom: 0.1em;
-  color: #243971;
-}
-.authentication {
-  width: 28em;
-  margin: auto;
-  margin-block: 100px;
-  text-align: center;
-  margin-top: 0;
-}
-
-.auth-content {
-  border: 1px solid #ccc;
-  padding: 20px;
-  border-radius: 8px;
-  background-color: rgb(0, 0, 0, 0.3);
-}
-
-.switch-tab {
-  font-size: 14px;
-  color: #666;
-}
-
-.switch-tab a {
-  color: #007bff;
-  text-decoration: none;
-  cursor: pointer;
-}
-
-.switch-tab a:hover {
-  text-decoration: underline;
-}
+  @import "@/css/composents/auth/Authentication.css";
+  @import "@/css/police.css";
+  @import "@/css/logo.css";
 </style>

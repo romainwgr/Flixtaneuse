@@ -18,17 +18,8 @@
   </script>
   
 <style>
-body {
-  background-color: #13101E;
-  margin: 0;
-}
+  @import "@/css/App.css";
+  @import "@/css/police.css"
 
-@import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
-
-.police_flix {
-  font-family: "Lalezar", serif;
-  font-weight: 400;
-  font-style: normal;
-}
 </style>
   

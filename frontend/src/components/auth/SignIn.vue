@@ -2,7 +2,7 @@
   Composant qui gère la connexion mail/mdp
 -->
 <template>
-  <div class="login-form">
+  <div class="sign">
     <div class="title">
       <h3>S'identifier</h3>
       <hr>
@@ -78,76 +78,8 @@ export default {
 };
 </script>
 
-  <style scoped>
-  @import url('https://fonts.googleapis.com/css2?family=Lalezar&display=swap');
-
-  .lalezar-regular {
-    font-family: "Lalezar", serif;
-    font-weight: 400;
-    font-style: normal;
-  }
-
-  h3 {
-    text-align: start;
-    color: white;
-    font-family: Lalezar;
-    font-weight: 200;
-    margin-bottom: 0;
-    margin-top: 0;
-  }
-  hr {
-    margin-top: 0;
-    width: 15%;
-  }
-  .title>hr {
-    margin-left: 0;
-    margin-bottom: 1.5em;
-  }
-  form>div {
-    display: flex;
-    flex-direction: column;
-    margin-bottom: 1em;
-  }
-  form>hr {
-    margin-top: 1em;
-  }
-  .login-form label {
-    margin-left: 1.5em;
-    margin-bottom: 0.2em;
-    font-family: system-ui, Roboto;
-    font-size: 14px;
-    color: white;
-    text-align: start;
-  }
-  .login-form input {
-    width: 90%;
-    padding: 0.5em;
-    margin-bottom: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin: auto;
-  }
-  .login-form button {
-    width: 70%;
-    height: 3.5em;
-    padding: 0.7em;
-    margin-top: 1em;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .login-form button:hover {
-    background-color: #0056b3;
-  }
-  .success {
-    color: green;
-    margin-top: 1em;
-  }
-  .error {
-    color: red;
-    margin-top: 1em;
-  }
-  </style>
+<style scoped>
+  @import "@/css/police.css";
+  @import "@/css/composents/auth/Sign.css";
+</style>
   
