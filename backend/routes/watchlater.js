@@ -9,5 +9,4 @@ const watchlaterController = require('../controllers/watchlaterController');
 router.post('/:id/addToWatchLater', isAuthenticated, watchlaterController.addToWatchLater); // Ajouter un film à "Regarder Plus Tard"
 router.delete('/:id/removeFromWatchLater', isAuthenticated, watchlaterController.removeFromWatchLater); // Retirer un film de "Regarder Plus Tard"
 router.get('/:id/isInWatchLater', isAuthenticated, watchlaterController.isInWatchLater); // Vérifier si le film est dans "Regarder Plus Tard"
-router.post('/film', isAuthenticated, watchlaterController.getWatchLater);
 module.exports = router;

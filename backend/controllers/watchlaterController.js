@@ -50,29 +50,10 @@ const isInWatchLater = async (req, res) => {
         res.status(500).json({ message: 'Erreur lors de la vérification de la liste "Regarder Plus Tard".', error: e.message });
     }
 };
-const getWatchLater = async (req, res) => {
-    try {
-        const userId = req.user.id;
-        
 
-        // Récupère les films marqués "à regarder plus tard"
-        const watchLaterFilms = await WatchLater.find({ userId })
-            .populate('filmId') // Jointure avec la collection Film
-            .sort({ createdAt: -1 }); // Trie par date décroissante
-
-        const films = watchLaterFilms.map((entry) => entry.filmId); // Extraire uniquement les films
-
-        res.status(200).json(films);
-    } catch (error) {
-        console.error("Erreur lors de la récupération des films à regarder plus tard :", error.message);
-
-        res.status(500).json({ message: "Erreur interne du serveur.", error: error.message });
-    }
-};
 
 module.exports = {
     addToWatchLater,
     removeFromWatchLater,
     isInWatchLater,
-    getWatchLater
 };

@@ -134,8 +134,8 @@ export default {
       this.likedFilms = await likedResponse.json();
 
       // Récupération des films à regarder plus tard
-      const watchLaterResponse = await fetch("http://localhost:3000/api/watchlater/film", {
-        method: "POST",
+      const watchLaterResponse = await fetch("http://localhost:3000/api/users/profile/watch-later", {
+        method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
         },

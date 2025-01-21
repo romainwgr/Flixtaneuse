@@ -3,6 +3,8 @@ const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 const Like = require('../models/Like')
 const Film = require('../models/Film');
+const Watchlater = require('../models/Watchlater');
+
 // Créer un utilisateur (inscription)
 const createUser = async (req, res) => {
     try {
@@ -190,6 +192,26 @@ const getLikedFilms = async(req,res) => {
         res.status(500).json({ message: "Erreur interne du serveur.", error: error.message });
       }
 };
+const getWatchLater = async(req,res) => {
+    try {
+        const userId = req.user.id;
+    
+        // Récupère les 5 films aimés les plus récents
+        const recentWatchFilms = await Watchlater.find({ userId })
+          .populate('filmId') // Jointure avec la collection Movie
+          .sort({ createdAt: -1 }) // Trie par date décroissante (-1 pour décroissant)
+          .limit(10); // Limite à 10 films
+
+        // Filtrer les films nuls
+        const films = recentWatchFilms
+        .map((watchlater) => watchlater.filmId) // Extraire les films
+
+        res.status(200).json(films);
+      } catch (error) {
+        console.error("Erreur lors de la récupération des films récents aimés :", error.message);
+        res.status(500).json({ message: "Erreur interne du serveur.", error: error.message });
+      }
+};
 
 
 
@@ -201,6 +223,7 @@ module.exports = {
     getUserProfile,
     deleteUser,
     getLikedFilms,
+    getWatchLater
 };
 
 
