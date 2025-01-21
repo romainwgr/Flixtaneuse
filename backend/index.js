@@ -37,6 +37,10 @@ app.use('/api/directors', directorsRoutes);
 const likesRoutes = require('./routes/likes.js');
 app.use('/api/likes', likesRoutes);
 
+const watchlaterRoutes =require ('./routes/watchlater.js');
+app.use('/api/watchlater', watchlaterRoutes); 
+
+
 
 // Route de test pour vérifier que le serveur fonctionne
 app.get('/', (req, res) => {

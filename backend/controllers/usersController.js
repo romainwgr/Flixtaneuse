@@ -176,7 +176,7 @@ const getLikedFilms = async(req,res) => {
         const recentLikedFilms = await Like.find({ userId })
           .populate('filmId') // Jointure avec la collection Movie
           .sort({ createdAt: -1 }) // Trie par date décroissante (-1 pour décroissant)
-          .limit(5); // Limite à 5 films
+          .limit(10); // Limite à 10 films
     
         // const films = recentLikedFilms.map((like) => like.filmId);
 
@@ -189,7 +189,8 @@ const getLikedFilms = async(req,res) => {
         console.error("Erreur lors de la récupération des films récents aimés :", error.message);
         res.status(500).json({ message: "Erreur interne du serveur.", error: error.message });
       }
-}
+};
+
 
 
 
