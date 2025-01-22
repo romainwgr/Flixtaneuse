@@ -11,18 +11,14 @@
 
     <!-- Section Infos -->
     <div class="film-detail__info">
+
+      <div class="title-and-like">
+        <h2 class="film-detail__title">{{ film.original_title }}</h2>
+        <button class="liked-button" v-if="isAuthenticated" @click="toggleLike">
+          {{ isLiked ? "🧡" : "🩶" }}
+        </button>
+      </div>
     
-      <h2 class="film-detail__title">{{ film.original_title }}</h2>
-
-      <!-- Like Button -->
-      <button v-if="isAuthenticated" @click="toggleLike">
-        {{ isLiked ? "🧡" : "🩶" }}
-      </button>
-
-      <!-- Watch Later Button -->
-      <button v-if="isAuthenticated" @click="toggleWatchLater">
-        {{ isInWatchLater ? "Retirer de Regarder Plus Tard" : "Ajouter à Regarder Plus Tard" }}
-      </button>
 
       <p class="film-detail__year"><strong>Année de sortie :</strong> {{ film.release_date?.split('-')[0] }}</p>
 
@@ -37,41 +33,33 @@
       <!-- Runtime -->
       <p class="film-detail__runtime"><strong>Durée :</strong> {{ film.runtime }} min</p>
 
-      <!-- Réalisateurs -->
+
+      <!-- Section Réalisateurs -->
+
       <div class="film-detail__director" v-if="film && film.directors && film.directors.length > 0">
         <strong>Réalisateurs :</strong>
-        <table class="detail-table">
-          <thead>
-          </thead>
-          <tbody>
-            <tr v-for="directorEntry in film.directors" :key="directorEntry.director.id">
-              <td>- {{ directorEntry.director.name }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <p>
+          {{ film.directors.map(directorEntry => directorEntry.director.name).join(', ') }}
+        </p>
       </div>
       <div v-else class="film-detail__director">
         <strong>Réalisateurs :</strong> Non disponibles
       </div>
 
-      <!-- Acteurs -->
+
+      <!-- Section Acteurs -->
+
       <div class="film-detail__actors" v-if="film && film.actors && film.actors.length > 0">
         <strong>Acteurs :</strong>
-        <table class="detail-table">
-          <thead>
-          </thead>
-          <tbody>
-            <tr v-for="actorEntry in film.actors" :key="actorEntry.actor.id">
-              <td>- {{ actorEntry.actor.name }}</td>
-            </tr>
-          </tbody>
-        </table>
+        <p>
+          {{ film.actors.map(actorEntry => actorEntry.actor.name).join(', ') }}
+        </p>
       </div>
       <div v-else class="film-detail__actors">
         <strong>Acteurs :</strong> Non disponibles
       </div>
 
-      <!-- Synopsis -->
+
       <p class="film-detail__overview"><strong>Synopsis :</strong> <br>{{ film.translated_summary }}</p>
     </div>
     

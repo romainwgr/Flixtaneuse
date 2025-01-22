@@ -17,6 +17,20 @@
 
 
 
+
+
+.title-and-like {
+    display: flex;
+    align-items: center;
+}
+
+.liked-button {
+    margin-inline: 20px;
+    font-size: 1.5em;
+    background-color: #ffffff00;
+    border: none;
+}
+
 .film-detail {
     display: flex;
     align-items: flex-start;
@@ -31,7 +45,7 @@
     display: flex;
     justify-content: center;
     width: 15em;
-    max-width: 400px; 
+    max-width: 400px;
 }
 
 .film-detail__image {
@@ -47,14 +61,13 @@
     width: 100%;
     padding: 20px;
     color: white;
-    
+
 }
 
 .film-detail__title {
     font-size: 32px;
+    margin: 0;
     font-weight: bold;
-    margin-bottom: 10px;
-    margin-top: 0;
     margin-left: 0;
 }
 
@@ -66,7 +79,7 @@
 .film-detail__overview {
     font-size: 16px;
     line-height: 1.6;
-    word-wrap: break-word; 
+    word-wrap: break-word;
     margin-top: 1em;
 }
 
