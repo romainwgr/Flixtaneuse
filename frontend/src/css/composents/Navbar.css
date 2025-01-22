@@ -23,7 +23,7 @@ nav {
     list-style: none;
 }
   
-img {
+.logo img {
     width: 50px;
     height: auto;
 }
@@ -43,12 +43,12 @@ img {
     border-radius: 5px;
 }
   
-a {
+nav a {
     color: inherit;
     text-decoration: none;
 }
   
-a.router-link-exact-active img:not(.logo img){
+nav a.router-link-exact-active img:not(.logo img){
     opacity: 0.5;
 }
   

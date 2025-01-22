@@ -15,10 +15,6 @@
     font-weight: bold;
 }
 
-
-
-
-
 .title-and-like {
     display: flex;
     align-items: center;
@@ -61,7 +57,7 @@
     width: 100%;
     padding: 20px;
     color: white;
-
+    font-family: system-ui, Roboto;
 }
 
 .film-detail__title {
@@ -69,6 +65,8 @@
     margin: 0;
     font-weight: bold;
     margin-left: 0;
+    font-family: Lalezar;
+    font-weight: 200;
 }
 
 .film-detail__year,
