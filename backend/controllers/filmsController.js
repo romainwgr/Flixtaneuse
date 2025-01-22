@@ -5,6 +5,7 @@ const Director = require('../models/Director'); // Assurez également l'import d
 
 
 // Récupérer 100  films test
+// Pour la page d'accueil
 const getAllFilms = async (req, res) => {
     try {
         const films = await Film.find().limit(100); // Limite à 100 films
@@ -14,10 +15,87 @@ const getAllFilms = async (req, res) => {
     }
 };
 
+
+// const getAllFilms = async (req, res) => {
+//     try {
+//         const films = await Film.aggregate([
+//             {
+//                 $facet: {
+//                     action: [
+//                         { $match: { genres: { $elemMatch: { name: 'Action' } } } },
+//                         { $sort: { vote_count: -1 } },
+//                         { $limit: 20 }
+//                     ],
+//                     romance: [
+//                         { $match: { genres: { $elemMatch: { name: 'Romance' } } } },
+//                         { $sort: { vote_count: -1 } },
+//                         { $limit: 20 }
+//                     ],
+//                     comedy: [
+//                         { $match: { genres: { $elemMatch: { name: 'Comedy' } } } },
+//                         { $sort: { vote_count: -1 } },
+//                         { $limit: 20 }
+//                     ],
+//                     drama: [
+//                         { $match: { genres: { $elemMatch: { name: 'Drama' } } } },
+//                         { $sort: { vote_count: -1 } },
+//                         { $limit: 20 }
+//                     ],
+//                     thriller: [
+//                         { $match: { genres: { $elemMatch: { name: 'Thriller' } } } },
+//                         { $sort: { vote_count: -1 } },
+//                         { $limit: 20 }
+//                     ],
+//                     scienceFiction: [
+//                         { $match: { genres: { $elemMatch: { name: 'Science Fiction' } } } },
+//                         { $sort: { vote_count: -1 } },
+//                         { $limit: 20 }
+//                     ],
+//                     randomActors: [
+//                         {
+//                             $lookup: {
+//                                 from: 'actors', // Remplacez 'actors' par le nom correct de votre collection d'acteurs
+//                                 localField: 'actors',
+//                                 foreignField: '_id',
+//                                 as: 'actorDetails'
+//                             }
+//                         },
+//                         { $unwind: '$actorDetails' },
+//                         { $match: { 'actorDetails.movieCount': { $gt: 50 } } },
+//                         { $sample: { size: 3 } }
+//                     ],
+//                     belongsToCollection: [
+//                         { $match: { belongs_to_collection: { $ne: null } } },
+//                         { $group: { _id: "$belongs_to_collection", title: { $first: "$title" } } },
+//                         { $sample: { size: 5 } }
+//                     ],
+//                     best_notes: [
+//                         { $sort: { vote_average: -1 } },
+//                         { $limit: 20 }
+//                     ]
+//                 }
+//             }
+//         ]);
+
+//         res.json(films[0]); // Retourne les résultats sous forme d'objet
+//     } catch (err) {
+//         res.status(500).json({
+//             message: 'Une erreur est survenue lors de la récupération des films.',
+//             error: err.message
+//         });
+//     }
+// };
+
+
+const getFilmsByKeywords = async (req,res) =>{
+    
+}
 // Rechercher un film par titre
 const searchFilmByTitle = async (req, res) => {
     try {
         
+        const { title } = req.query;
+
         if (!title) {
             return res.status(400).json({ message: 'Le paramètre "title" est requis.' });
         }

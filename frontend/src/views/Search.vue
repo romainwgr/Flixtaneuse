@@ -2,7 +2,7 @@
   Page de recherche
 -->
 <template>
-  <div>
+  <div class="search-view">
     <h2>Rechercher un film</h2>
     <div class="search-container">
       <input
@@ -32,14 +32,18 @@
     <!-- Indicateur de chargement -->
     <p v-if="isLoading">Recherche en cours...</p>
   </div>
+  <Footer />
 </template>
 
 <script>
 import FilmCard from "@/components/film/FilmCard.vue";
+import Footer from "@/components/Footer.vue";
 
 export default {
   components: {
     FilmCard,
+    Footer
+
   },
   data() {
     return {
@@ -102,43 +106,5 @@ export default {
 </script>
 
 <style scoped>
-.films-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-  gap: 30px;
-  margin-top: 30px;
-  margin-inline: 30px;
-}
-
-.search-container {
-  display: flex;
-  justify-content: center;
-  margin-bottom: 20px;
-}
-
-.search-bar {
-  width: 45%;
-  height: 40px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  text-indent: 10px;
-  font-size: 16px;
-}
-
-.search-bar:focus {
-  outline: 2px solid #61dafb;
-}
-
-p,
-h2 {
-  color: white;
-  text-align: center;
-}
-
-.info-limit {
-  text-align: center;
-  font-size: 14px;
-  color: gray;
-  margin-top: 10px;
-}
+  @import "@/css/views/Search.css";
 </style>

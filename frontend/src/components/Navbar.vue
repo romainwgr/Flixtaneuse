@@ -2,78 +2,63 @@
     Composant qui affiche la barre de navigation
 -->
 <template>
-  <nav>
-    <a href="/"><img src="@/assets/logo_test.png" alt="logo" class="logo"></a>
+  <nav :class="{ navbar: true, scrolled: isScrolled }">
+    <router-link to="/" class="logo"> <img class="logo" src="../assets/logo.png" alt="logo"> </router-link>
     <div class="navlinks">
       <ul>
-        <!-- Filtre les liens avec showInNavbar à true -->
         <li v-for="(link, index) in filteredLinks" :key="index">
-          <router-link :to="link.path">{{ link.name }}</router-link>
+          <router-link :to="link.path">
+            <img :src="link.icon" :alt="link.name" />
+          </router-link>
         </li>
       </ul>
     </div>
+  
   </nav>
 </template>
 
 <script>
+import homeIcon from '@/assets/home.svg';
+import searchIcon from '@/assets/loupe.svg';
+import profileIcon from '@/assets/profile.svg';
+
 import navigationLinks from '@/config/navigation.js';
 
 export default {
   name: 'Navbar',
   data() {
     return {
-      navigationLinks
+      isScrolled: false, 
+      navigationLinks: navigationLinks.map(link => {
+        const iconMap = {
+          Accueil: homeIcon,
+          'Recherche de films': searchIcon,
+          Profil: profileIcon
+        };
+        return { ...link, icon: iconMap[link.name] || null };
+      })
     };
   },
   computed: {
     filteredLinks() {
-      // Filtre uniquement les liens où showInNavbar est true
       return this.navigationLinks.filter(link => link.showInNavbar);
     }
+  },
+  methods: {
+    handleScroll() {
+      this.isScrolled = window.scrollY > 50;
+    }
+  },
+  mounted() {
+    window.addEventListener('scroll', this.handleScroll);
+  },
+  beforeDestroy() {
+    window.removeEventListener('scroll', this.handleScroll);
   }
 };
+
 </script>
 
 <style scoped>
-
-nav {
-  padding: 0.5em;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.navlinks {
-  padding: 1em;
-}
-
-.logo {
-  width: 75px;
-  height: 75px;
-}
-
-ul {
-  list-style: none;
-  display: flex;
-  gap: 1.5em;
-  margin: 0;
-  padding: 0;
-}
-
-li {
-  color: white;
-  background-color: grey;
-  padding: 1em;
-  border-radius: 5px;
-  
-}
-
-a {
-  color: inherit;
-  text-decoration: none;
-}
-
-a.router-link-exact-active {
-  text-decoration: underline;
-}
+ @import "@/css/composents/Navbar.css";
 </style>

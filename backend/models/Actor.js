@@ -5,7 +5,11 @@ const actorSchema = new mongoose.Schema({
   name: { type: String, required: true },
   movies: [
     {
-      id: { type: Number, required: true },
+      id: { 
+          type: mongoose.Schema.Types.ObjectId, 
+          ref: 'Film', 
+          required: true
+      },
       role: { type: String }
     }
   ]

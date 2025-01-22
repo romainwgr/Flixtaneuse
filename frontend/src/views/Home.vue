@@ -1,7 +1,9 @@
 <template>
   <div>
+    <div class="title">
+      <h1 class="logo-title">FlixTaneuse</h1>
+    </div>
     <h2>Liste des films</h2>
-    <!-- Liste horizontale de films avec défilement -->
     <div class="film-container">
       <FilmCard
         v-for="film in films"
@@ -9,18 +11,31 @@
         :film="film"
       />
     </div>
+    <ActorFilm/>
+    <DirectorFilm />
+
 
     <!-- Message d'erreur si la requête échoue -->
     <p v-if="errorMessage">{{ errorMessage }}</p>
   </div>
+  <Footer/>
+
 </template>
 
 <script>
 import FilmCard from "@/components/film/FilmCard.vue";
+import DirectorFilm from "@/components/home/DirectorFilm.vue"
+import ActorFilm from "@/components/home/ActorFilm.vue"
+import Footer from "@/components/Footer.vue";
+
 
 export default {
   components: {
     FilmCard,
+    DirectorFilm,
+    ActorFilm,
+    Footer
+
   },
   data() {
     return {
@@ -45,64 +60,7 @@ export default {
   },
 };
 </script>
-<style scoped>
-/* Conteneur principal des films */
-.film-container {
-  display: flex; /* Permet l'affichage en ligne (horizontal) */
-  flex-wrap: nowrap; /* Empêche les films de passer à la ligne */
-  overflow-x: auto; /* Active le défilement horizontal */
-  gap: 20px; /* Espacement entre les films */
-  padding: 10px; /* Espacement autour des films */
-  scroll-behavior: smooth; /* Défilement fluide */
-  scrollbar-width: thin; /* Minimise l'apparence de la barre de défilement */
-}
-
-/* Style de la carte de film */
-.film-card {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-  text-decoration: none;
-  color: inherit;
-  width: 200px; /* Largeur fixe pour chaque carte */
-  transition: transform 0.3s ease; /* Zoom au survol */
-}
-
-.film-card:hover {
-  transform: scale(1.05); /* Zoom léger au survol */
-}
-
-/* Image de la carte de film */
-.film-card__image {
-  width: 100%; /* L'image occupe toute la largeur */
-  height: 300px; /* Hauteur fixe pour l'image */
-  border-radius: 8px; /* Coins arrondis */
-  object-fit: cover; /* Ajuste l'image dans le conteneur sans la déformer */
-  margin-bottom: 10px; /* Espace entre l'image et le titre */
-}
-
-/* Titre de la carte de film */
-.film-card__title {
-  font-size: 16px; /* Taille du texte */
-  color: white; /* Couleur blanche */
-  text-overflow: ellipsis; /* Tronque le texte trop long */
-  overflow: hidden;
-  white-space: nowrap; /* Évite les retours à la ligne */
-  margin: 0;
-}
-
-/* Style personnalisé pour la barre de défilement (uniquement pour les navigateurs modernes) */
-.film-container::-webkit-scrollbar {
-  height: 8px; /* Hauteur de la barre de défilement horizontale */
-}
-
-.film-container::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.5); /* Couleur de la barre */
-  border-radius: 10px; /* Coins arrondis */
-}
-
-.film-container::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.8); /* Couleur plus visible au survol */
-}
+<style >
+  @import "@/css/logo.css";
+  @import "@/css/views/Home.css";
 </style>

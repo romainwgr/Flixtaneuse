@@ -1,43 +1,48 @@
 <template>
-  <div class="signup">
+  <div class="sign">
+    <div class="title">
+      <h3>S'inscrire</h3>
+      <hr>
+    </div>
     <form @submit.prevent="handleSignUp">
       <div>
+        <label for="name">Nom</label>
         <input
           type="text"
           id="name"
           v-model="formData.name"
           required
-          placeholder="Entrez votre nom"
         />
       </div>
       <div>
+        <label for="public_name">Pseudonyme</label>
         <input
           type="text"
           id="public_name"
           v-model="formData.public_name"
           required
-          placeholder="Entrez votre pseudonyme"
         />
       </div>
       <div>
+        <label for="email">Email</label>
         <input
           type="email"
           id="email"
           v-model="formData.email"
           required
-          placeholder="Entrez votre email"
         />
       </div>
       <div>
+        <label for="password">Mot de passe</label>
         <input
           type="password"
           id="password"
           v-model="formData.password"
           required
-          placeholder="Entrez votre mot de passe"
         />
       </div>
       <button type="submit">S'inscrire</button>
+      <hr>
     </form>
     <p v-if="successMessage" class="success">{{ successMessage }}</p>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
@@ -99,80 +104,6 @@ export default {
 </script>
 
 <style scoped>
-.signup {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-.signup input {
-  width: 100%;
-  padding: 10px;
-  margin-bottom: 15px;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  font-size: 16px;
-  box-sizing: border-box;
-}
-
-.signup input:focus {
-  border-color: #007bff;
-  outline: none;
-  box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
-}
-
-.signup button {
-  width: 100%;
-  padding: 12px;
-  font-size: 16px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.signup button:hover {
-  background-color: #0056b3;
-}
-
-.success,
-.error {
-  margin-top: 15px;
-  font-size: 14px;
-  font-weight: bold;
-  text-align: center;
-}
-
-.success {
-  color: green;
-}
-
-.error {
-  color: red;
-}
-
-/* Réactivité pour les petits écrans */
-@media (max-width: 600px) {
-  .signup {
-    padding: 15px;
-  }
-
-  .signup input {
-    font-size: 14px;
-    padding: 8px;
-  }
-
-  .signup button {
-    font-size: 14px;
-    padding: 10px;
-  }
-}
+  @import "@/css/police.css";
+  @import "@/css/composents/auth/Sign.css";
 </style>

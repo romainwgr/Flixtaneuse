@@ -13,9 +13,10 @@ const directorSchema = new mongoose.Schema({
   movies: [
     {
       id: { 
-        type: Number, 
-        required: true
-      }
+            type: mongoose.Schema.Types.ObjectId, 
+            ref: 'Film', 
+            required: true
+          },      
     }
   ]
 });

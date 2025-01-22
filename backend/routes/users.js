@@ -21,7 +21,6 @@ router.get("/profile", isAuthenticated, usersController.getUserProfile);
 // router.get('/:id', usersController.getUserById);
 
 // Mettre à jour le profil de l'utilisateur
-router.put('/:id', isAuthenticated,usersController.updateUserProfile);
 
 // // Mettre à jour l'image de profil
 // router.patch('/:id/image', usersController.updateProfileImage);
@@ -43,5 +42,8 @@ router.get('/profile/liked-films', isAuthenticated,usersController.getLikedFilms
 
 // Supprimer un utilisateur
 router.delete('/:id', isAuthenticated,usersController.deleteUser);
+
+router.put('/:id', isAuthenticated,usersController.updateUserProfile);
+
 
 module.exports = router;

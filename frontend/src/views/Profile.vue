@@ -6,7 +6,7 @@
       </div>
       <!-- Affichage conditionnel : utilisateur authentifié ou non -->
       <div v-else-if="isAuthenticated">
-        <Profile :user="user" />
+        <Profile :user="user"  @logout="handleLogOut"/>
       </div>
       <div v-else>
         <Authentication @authenticated="onAuthenticated" />
@@ -32,6 +32,15 @@
       };
     },
     methods: {
+      handleLogOut() {
+        // Supprime le token
+        localStorage.removeItem('token');
+
+        this.user = null;
+
+        // Redirige vers la page de connexion
+        this.isAuthenticated = false;
+    },
       async checkAuthentication() {
         try {
           const token = localStorage.getItem('token'); 
@@ -76,35 +85,9 @@
   };
     </script>
     
-    <style scoped>
-    .profile {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 1em;
-    }
-    
-    .profile-details {
-      background-color: #f9f9f9;
-      padding: 1em;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    button {
-      display: block;
-      margin: 1em auto;
-      padding: 0.5em 1em;
-      border: none;
-      background-color: #333;
-      color: #fff;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    
-    button:hover {
-      background-color: #555;
-    }
-    </style>
+<style scoped>
+  @import "@/css/views/Profile.css";
+</style>
     
      
 

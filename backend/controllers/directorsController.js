@@ -1,6 +1,39 @@
 // backend/controllers/directorsController.js
 const Director = require('../models/Director');
 const Film = require('../models/Film');
+const { getDirectorFilmsById } = require('./utils/utils.js'); // Importez la fonction utilitaire
+
+
+
+
+const getFamousDirectorsFilms = async (req, res) => {
+  const directorIds = [
+      424, 1507, 21, 16, 723, 619, 629, 350, 91, 242, 229, 104, 52, 479, 1949, 419, 58, 2516, 160
+  ];
+
+  try {
+      // Sélectionner 5 IDs de réalisateurs au hasard
+      const selectedIds = directorIds
+          .sort(() => Math.random() - 0.5) // Mélange aléatoire
+          .slice(0, 5); // Prendre les 5 premiers
+
+          // Récupérer les informations des réalisateurs sélectionnés avec leurs films
+      const results = await Promise.all(
+          selectedIds.map(async (id) => {
+              return await getDirectorFilmsById(id);
+          })
+      );
+
+      // Envoyer le résultat au client
+      res.status(200).json(results);
+  } catch (error) {
+      console.error("Erreur lors de la récupération des films des réalisateurs célèbres :", error);
+      res.status(500).json({ message: "Une erreur est survenue lors de la récupération des films." });
+  }
+};
+
+
+
 
 // Rechercher un réalisateur par nom
 const searchDirectorByName = async (req, res) => {
@@ -44,9 +77,12 @@ const getDirectorById = async (req, res) => {
     }
   };
   
+ 
+
   
 
 module.exports = {
   searchDirectorByName,
   getDirectorById,
+  getFamousDirectorsFilms
 };
