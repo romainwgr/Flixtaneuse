@@ -17,6 +17,11 @@
         <button class="liked-button" v-if="isAuthenticated" @click="toggleLike">
           {{ isLiked ? "🧡" : "🩶" }}
         </button>
+        <button v-if="isAuthenticated" @click="toggleWatchLater">
+          {{ isInWatchLater ? "Retirer de Regarder Plus Tard" : "Ajouter à Regarder Plus Tard" }}
+        </button>
+
+
       </div>
     
 
