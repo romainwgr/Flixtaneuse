@@ -26,6 +26,7 @@ const createUser = async (req, res) => {
             public_name,
             email,
             password: hashedPassword
+            
         });
 
         await user.save();

@@ -37,7 +37,8 @@ app.use('/api/directors', directorsRoutes);
 const likesRoutes = require('./routes/likes.js');
 app.use('/api/likes', likesRoutes);
 
-
+// const RechercheRoutes = require('./routes/recherche.js');
+// app.use('/api/recherche')
 // Route de test pour vérifier que le serveur fonctionne
 app.get('/', (req, res) => {
   res.send("Bienvenue sur l'API de films !");
