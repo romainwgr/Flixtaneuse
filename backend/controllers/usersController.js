@@ -55,16 +55,10 @@ const loginUser = async (req, res) => {
             return res.status(404).json({ message: 'Utilisateur non trouvé.' });
         }
 
-        console.log("Utilisateur trouvé :", {
-            id: user._id,
-            email: user.email,
-            public_name: user.public_name,
-            password: user.password
-        });
+        
 
         // Vérification du mot de passe avec Argon2
         const isPasswordValid = await argon2.verify(user.password, password);
-        console.log("Résultat de la vérification du mot de passe :", isPasswordValid);
 
         if (!isPasswordValid) {
             console.warn("Mot de passe incorrect pour l'utilisateur :", email);
