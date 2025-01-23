@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div class="home-page">
     <div class="title">
-      <h1 class="logo-title">FlixTaneuse</h1>
+      <h1 class="logo-title">FLIXTANEUSE</h1>
     </div>
 
     <div class="image-slider">

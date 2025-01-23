@@ -15,7 +15,17 @@
     font-weight: bold;
 }
 
+.title-and-like {
+    display: flex;
+    align-items: center;
+}
 
+.liked-button {
+    margin-inline: 20px;
+    font-size: 1.5em;
+    background-color: #ffffff00;
+    border: none;
+}
 
 .film-detail {
     display: flex;
@@ -31,7 +41,7 @@
     display: flex;
     justify-content: center;
     width: 15em;
-    max-width: 400px; 
+    max-width: 400px;
 }
 
 .film-detail__image {
@@ -47,15 +57,16 @@
     width: 100%;
     padding: 20px;
     color: white;
-    
+    font-family: system-ui, Roboto;
 }
 
 .film-detail__title {
     font-size: 32px;
+    margin: 0;
     font-weight: bold;
-    margin-bottom: 10px;
-    margin-top: 0;
     margin-left: 0;
+    font-family: Lalezar;
+    font-weight: 200;
 }
 
 .film-detail__year,
@@ -66,7 +77,7 @@
 .film-detail__overview {
     font-size: 16px;
     line-height: 1.6;
-    word-wrap: break-word; 
+    word-wrap: break-word;
     margin-top: 1em;
 }
 
@@ -76,3 +87,37 @@
     font-size: 20px;
     color: #666;
 }
+
+
+  .star-rating {
+    display: inline-block;
+    font-size: 24px;
+    cursor: pointer;
+  }
+
+  .star-rating span {
+    color: #ccc;
+    transition: color 0.2s;
+  }
+
+  .star-rating span.active {
+    color: #ffcc00;
+  }
+
+  .star-rating span:hover {
+    color: #ffcc00;
+  }
+  .film-detail__rating button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .film-detail__rating button:hover {
+    background-color: #cc0000;
+  }
