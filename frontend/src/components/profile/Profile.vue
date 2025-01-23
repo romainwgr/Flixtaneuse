@@ -35,6 +35,19 @@
       <p v-else>Vous avez tout visionné !</p>
     </div>
 
+    <!-- Section des films notés -->
+    <div class="movie-profile-section">
+      <h2>Films notés :</h2>
+      <div v-if="ratedFilms.length > 0" class="wrapper">
+        <FilmCard
+          v-for="film in ratedFilms"
+          :key="film._id"
+          :film="film"
+        />
+      </div>
+      <p v-else>Vous n'avez noté aucun film !</p>
+    </div>
+
     <!-- Bouton de déconnexion -->
     <div class="logout">
       <button class="logout-button"
@@ -110,6 +123,7 @@ export default {
       defaultImage, // Image par défaut
       likedFilms: [], // Films aimés
       watchLaterFilms: [], // Films à regarder plus tard
+      ratedFilms: [], // Films notés
     };
   },
   components: {
@@ -146,6 +160,20 @@ export default {
       }
 
       this.watchLaterFilms = await watchLaterResponse.json();
+
+      // Récupération des films notés
+      const ratedResponse = await fetch("http://localhost:3000/api/users/profile/rated-films", {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!ratedResponse.ok) {
+        throw new Error(`Erreur HTTP (Rated Films) : ${ratedResponse.status}`);
+      }
+
+      this.ratedFilms = await ratedResponse.json();
     } catch (error) {
       console.error("Erreur lors de la récupération des données utilisateur :", error.message);
     }

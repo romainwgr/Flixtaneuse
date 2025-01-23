@@ -35,6 +35,7 @@
           </span>
         </div>
         <p v-if="userRating">Vous avez noté ce film : {{ userRating }} étoiles</p>
+        <button @click="deleteRating" v-if="userRating > 0">Supprimer ma notation</button>
       </div>
 
       <!-- Année de sortie -->
@@ -194,6 +195,36 @@ export default {
         console.error("Erreur lors de la notation du film:", error);
       }
     },
+
+    // Fonction pour supprimer la notation
+    async deleteRating() {
+      const filmId = this.$route?.params?.id;
+
+      if (!filmId || !this.isAuthenticated) return;
+
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) return;
+
+        // Envoyer une requête DELETE pour supprimer la notation
+        const response = await fetch(`http://localhost:3000/api/ratings/${filmId}/deleteRating`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) throw new Error("Erreur lors de la suppression de la notation");
+
+        // Réinitialiser la note de l'utilisateur
+        this.userRating = 0;
+        alert("Votre notation a été supprimée avec succès.");
+      } catch (error) {
+        console.error("Erreur lors de la suppression de la notation :", error);
+        alert("Erreur lors de la suppression de la notation.");
+      }
+    },
   },
 
   // Méthode exécutée lors de la création du composant
@@ -276,5 +307,4 @@ export default {
 
 <style scoped>
   @import "@/css/composents/film/FilmDetail.css";
-
 </style>
