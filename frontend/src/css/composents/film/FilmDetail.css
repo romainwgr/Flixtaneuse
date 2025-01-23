@@ -109,3 +109,17 @@
   .star-rating span:hover {
     color: #ffcc00;
   }
+  .film-detail__rating button {
+    margin-top: 10px;
+    padding: 8px 16px;
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+
+  .film-detail__rating button:hover {
+    background-color: #cc0000;
+  }
