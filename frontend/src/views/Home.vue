@@ -3,64 +3,64 @@
     <div class="title">
       <h1 class="logo-title">FlixTaneuse</h1>
     </div>
+    <!-- Liste des films -->
     <h2>Liste des films</h2>
-    <div class="film-container">
+    <div class="film-container" v-if="films.length">
       <FilmCard
         v-for="film in films"
         :key="film._id"
         :film="film"
       />
     </div>
-    <ActorFilm/>
+    <ActorFilm />
     <DirectorFilm />
 
-
-    <!-- Message d'erreur si la requête échoue -->
+    <!-- Gestion des erreurs -->
     <p v-if="errorMessage">{{ errorMessage }}</p>
+    <!-- Indicateur de chargement -->
+    <p v-else-if="loading">Chargement des films...</p>
   </div>
-  <Footer/>
-
+  <Footer />
 </template>
 
 <script>
 import FilmCard from "@/components/film/FilmCard.vue";
-import DirectorFilm from "@/components/home/DirectorFilm.vue"
-import ActorFilm from "@/components/home/ActorFilm.vue"
+import DirectorFilm from "@/components/home/DirectorFilm.vue";
+import ActorFilm from "@/components/home/ActorFilm.vue";
 import Footer from "@/components/Footer.vue";
-
+import { useFilmStore } from "@/store/homefilmStore.js";
 
 export default {
+  setup() {
+    const filmStore = useFilmStore();
+
+      // Relance les appels API
+      if (filmStore.films.length === 0) {
+        filmStore.fetchFilms();
+      }
+      if (filmStore.actors.length === 0) {
+        filmStore.fetchActorsFilms();
+      }
+      if (filmStore.directors.length === 0) {
+        filmStore.fetchDirectorsFilms();
+      }
+
+    return {
+      films: filmStore.films, // Liste des films
+      errorMessage: filmStore.errorMessage, // Message d'erreur éventuel
+      loading: filmStore.loading, // Indicateur de chargement
+    };
+  },
   components: {
     FilmCard,
     DirectorFilm,
     ActorFilm,
-    Footer
-
-  },
-  data() {
-    return {
-      films: [], // Tableau pour stocker les films récupérés
-      errorMessage: "", // Message d'erreur en cas de problème
-    };
-  },
-  async created() {
-    try {
-      // Appel à l'API pour récupérer les films
-      const response = await fetch("http://localhost:3000/api/films"); // Remplace par l'URL réelle de ton API
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP ! Statut : ${response.status}`); // Gestion des erreurs HTTP
-      }
-      const data = await response.json(); // Conversion des données au format JSON
-      this.films = data; // Stockage des données dans `films`
-    } catch (error) {
-      // Gestion des erreurs lors de la requête
-      this.errorMessage = "Erreur lors de la récupération des films : " + error.message;
-      console.error(error);
-    }
+    Footer,
   },
 };
 </script>
-<style >
-  @import "@/css/logo.css";
-  @import "@/css/views/Home.css";
+
+<style>
+@import "@/css/logo.css";
+@import "@/css/views/Home.css";
 </style>

@@ -25,71 +25,55 @@
 
 -->
 <template>
-    <div>
-      <!-- Gestion du chargement -->
-      <div v-if="loading">Chargement des acteurs...</div>
-  
-      <!-- Gestion des erreurs -->
-      <div v-else-if="error">{{ error }}</div>
-  
-      <!-- Affichage des réalisateurs et de leurs films -->
-      <div v-else>
-        <div v-for="actor in actors" :key="actor.actor" class="actor-section">
-          <h2>Films de l'acteur {{ actor.name }}</h2>
-  
-          <!-- Affichez ici la liste des films pour chaque réalisateur -->
-          <div class="film-container">
-            <FilmCard
-                v-for="film in actor.films"
-                :key="film._id"
-                :film="film"
-            />
-            </div>
-          </div>
+  <div>
+    <!-- Gestion du chargement -->
+    <div v-if="loading">Chargement des acteurs...</div>
+
+    <!-- Gestion des erreurs -->
+    <div v-else-if="error">{{ error }}</div>
+
+    <!-- Affichage des acteurs et de leurs films -->
+    <div v-else>
+      <div v-for="actor in actors" :key="actor.name" class="actor-section">
+        <h2>Films de l'acteur {{ actor.name }}</h2>
+
+        <!-- Affichez ici la liste des films pour chaque acteur -->
+        <div class="film-container">
+          <FilmCard
+              v-for="film in actor.films"
+              :key="film._id"
+              :film="film"
+          />
         </div>
       </div>
-  </template>
-  
+    </div>
+  </div>
+</template>
 
 <script>
-import FilmCard from "@/components/film/FilmCard.vue";
+  import FilmCard from "@/components/film/FilmCard.vue";
+  import { useFilmStore } from '@/store/homefilmStore';
 
-export default {
-    
-  name: "actorFilm",
-  components: {
-    FilmCard,
+  export default {
+    name: "ActorFilm",
+    components: {
+      FilmCard,
+    },
+    setup() {
+      const filmStore = useFilmStore();
 
-  },
-  data() {
-    return {
-      films : [],
-      actors: [], // Tableau pour stocker les réalisateurs et leurs films
-      loading: true, // Indicateur de chargement
-      error: null,   // Gestion des erreurs
-    };
-  },
-  async created() {
-    try {
-      // Requête pour récupérer les réalisateurs et leurs films
-      const response = await fetch("http://localhost:3000/api/actors/famous"); // Remplacez par l'URL de votre backend
+      // Charger les données des acteurs au montage
+      filmStore.fetchActorsFilms();
 
-      // Vérification de la réponse
-      if (!response.ok) {
-        throw new Error(`Erreur HTTP : ${response.status}`);
-      }
-
-      // Stocker les données des réalisateurs
-      this.actors = await response.json();
-    } catch (err) {
-      console.error("Erreur lors de la récupération des acteurs :", err);
-      this.error = "Une erreur est survenue lors de la récupération des acteurs.";
-    } finally {
-      this.loading = false; // Fin du chargement
-    }
-  },
-};
+      return {
+        actors: filmStore.actors, // Liste des acteurs
+        loading: filmStore.loading, // Indicateur de chargement
+        error: filmStore.errorMessage, // Gestion des erreurs
+      };
+    },
+  };
 </script>
+
 <style scoped>
 
 </style>

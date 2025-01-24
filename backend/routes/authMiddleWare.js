@@ -48,7 +48,6 @@ const useUserPref = (req, res, next) => {
       return next();
     } catch (err) {
       // En cas de token invalide/expiré ou de problème
-      console.log("JWT invalide ou expiré :", err);
       req.user = null; // Définit l'utilisateur à null en cas d'erreur
       return next();
     }
