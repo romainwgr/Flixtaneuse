@@ -15,14 +15,18 @@
     <!-- Formulaire de modification -->
     <div v-if="isEditing" class="edit-form">
       <form @submit.prevent="updateUser">
-        <label for="name">Nom :</label>
+        <label for="name" class="white-label">Nom :</label>
         <input type="text" v-model="editedUser.name" id="name" />
 
-        <label for="public_name">Pseudo :</label>
+        <label for="public_name" class="white-label">Pseudo :</label>
         <input type="text" v-model="editedUser.public_name" id="public_name" />
 
-        <label for="email">E-mail :</label>
+        <label for="email" class="white-label">E-mail :</label>
         <input type="email" v-model="editedUser.email" id="email" />
+
+        <!-- Champ pour le nouveau mot de passe -->
+        <label for="newPassword" class="white-label">Nouveau mot de passe :</label>
+        <input type="password" v-model="editedUser.newPassword" id="newPassword" />
 
         <button type="submit">Sauvegarder</button>
       </form>
@@ -104,7 +108,10 @@ export default {
       watchLaterFilms: [],
       ratedFilms: [],
       isEditing: false,
-      editedUser: { ...this.user },
+      editedUser: {
+        ...this.user,
+        newPassword: "", // Nouveau mot de passe
+      },
     };
   },
   methods: {
@@ -114,7 +121,11 @@ export default {
     toggleEditMode() {
       this.isEditing = !this.isEditing;
       if (!this.isEditing) {
-        this.editedUser = { ...this.user };
+        // Réinitialiser les champs du formulaire
+        this.editedUser = {
+          ...this.user,
+          newPassword: "", // Réinitialiser le champ du nouveau mot de passe
+        };
       }
     },
     async updateUser() {
@@ -125,6 +136,30 @@ export default {
         return;
       }
 
+      // Vérifier si des modifications ont été apportées
+      const hasChanges =
+        this.editedUser.name !== this.user.name ||
+        this.editedUser.public_name !== this.user.public_name ||
+        this.editedUser.email !== this.user.email ||
+        this.editedUser.newPassword !== "";
+
+      if (!hasChanges) {
+        alert("Aucune modification détectée.");
+        return;
+      }
+
+      // Préparer les données à envoyer
+      const updatedData = {
+        name: this.editedUser.name,
+        public_name: this.editedUser.public_name,
+        email: this.editedUser.email,
+      };
+
+      // Ajouter le nouveau mot de passe si fourni
+      if (this.editedUser.newPassword) {
+        updatedData.password = this.editedUser.newPassword;
+      }
+
       try {
         const response = await fetch("http://localhost:3000/api/users/profile/modif-user", {
           method: "POST",
@@ -132,7 +167,7 @@ export default {
             "Content-Type": "application/json",
             Authorization: `Bearer ${token}`,
           },
-          body: JSON.stringify(this.editedUser),
+          body: JSON.stringify(updatedData),
         });
 
         if (response.ok) {
@@ -157,7 +192,10 @@ export default {
     user: {
       immediate: true,
       handler(newUser) {
-        this.editedUser = { ...newUser };
+        this.editedUser = {
+          ...newUser,
+          newPassword: "", // Réinitialiser le champ du nouveau mot de passe
+        };
       },
     },
   },
