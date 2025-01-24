@@ -23,4 +23,35 @@ const isAuthenticated = (req, res, next) => {
     }
 };
 
-module.exports = { isAuthenticated };
+const useUserPref = (req, res, next) => {
+    // Récupération de l'en-tête Authorization
+    const authHeader = req.headers.authorization;
+  
+    // Vérification si l'en-tête est présent
+    if (!authHeader) {
+      console.log("Pas d'en-tête Authorization !");
+      req.user = null; // Définit l'utilisateur à null si pas d'en-tête
+      return next(); // Passe au middleware suivant
+    }
+  
+    // Extraction du token
+    const token = authHeader.split(" ")[1];
+  
+    try {
+      // Vérification et décodage du token
+      const decoded = jwt.verify(token, process.env.JWT_SECRET);
+  
+      // Ajout des informations utilisateur à l'objet req
+      req.user = decoded;
+  
+      // Appel de next pour continuer le traitement
+      return next();
+    } catch (err) {
+      // En cas de token invalide/expiré ou de problème
+      console.log("JWT invalide ou expiré :", err);
+      req.user = null; // Définit l'utilisateur à null en cas d'erreur
+      return next();
+    }
+  };
+  
+module.exports = { isAuthenticated ,useUserPref  };
