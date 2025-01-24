@@ -1,72 +1,81 @@
 .detail-table {
-    border-collapse: collapse;
-    margin-top: 10px;
-    color: white;
+  border-collapse: collapse;
+  margin-top: 10px;
+  color: white;
 }
 
 .detail-table th,
 .detail-table td {
-    padding: 8px 10px;
-    text-align: left;
+  padding: 8px 10px;
+  text-align: left;
 }
 
 .detail-table th {
-    color: white;
-    font-weight: bold;
+  color: white;
+  font-weight: bold;
 }
 
 .title-and-like {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .liked-button {
-    margin-inline: 20px;
-    font-size: 1.5em;
-    background-color: #ffffff00;
-    border: none;
+  margin-inline: 20px;
+  font-size: 1.5em;
+  background-color: #ffffff00;
+  border: none;
+  margin-bottom: 10px;
+}
+
+.watch-button {
+margin-inline: 20px;
+font-size: 1.5em;
+background-color: #ffffff00;
+border: none;
+margin-bottom: 10px;
 }
 
 .film-detail {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    width: 90%;
-    margin: auto;
-    margin-top: 6em;
-    padding: 20px;
+  display: flex;
+  align-items: flex-start;
+  gap: 20px;
+  width: 90%;
+  margin: auto;
+  margin-top: 6em;
+  padding: 20px;
 }
 
 .film-detail__image-container {
-    display: flex;
-    justify-content: center;
-    width: 15em;
-    max-width: 400px;
+  display: flex;
+  justify-content: center;
+  width: 15em;
+  max-width: 400px;
 }
 
 .film-detail__image {
-    width: 100%;
-    height: auto;
-    max-height: 500px;
-    object-fit: cover;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  height: auto;
+  max-height: 500px;
+  object-fit: cover;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
 .film-detail__info {
-    width: 100%;
-    padding: 20px;
-    color: white;
-    font-family: system-ui, Roboto;
+  width: 100%;
+  padding: 20px;
+  color: white;
+  font-family: system-ui, Roboto;
 }
 
 .film-detail__title {
-    font-size: 32px;
-    margin: 0;
-    font-weight: bold;
-    margin-left: 0;
-    font-family: Lalezar;
-    font-weight: 200;
+  font-size: 32px;
+  margin: 0;
+  font-weight: bold;
+  margin-left: 0;
+  font-family: Lalezar;
+  font-weight: 200;
 }
 
 .film-detail__year,
@@ -75,49 +84,51 @@
 .film-detail__director,
 .film-detail__actors,
 .film-detail__overview {
-    font-size: 16px;
-    line-height: 1.6;
-    word-wrap: break-word;
-    margin-top: 1em;
+  font-size: 16px;
+  line-height: 1.6;
+  word-wrap: break-word;
+  margin-top: 1em;
 }
 
 .loading {
-    text-align: center;
-    margin-top: 50px;
-    font-size: 20px;
-    color: #666;
+  text-align: center;
+  margin-top: 50px;
+  font-size: 20px;
+  color: #666;
 }
 
 
-  .star-rating {
-    display: inline-block;
-    font-size: 24px;
-    cursor: pointer;
-  }
+.star-rating {
+  display: inline-block;
+  font-size: 24px;
+  cursor: pointer;
+  margin-left: 1em;
+}
 
-  .star-rating span {
-    color: #ccc;
-    transition: color 0.2s;
-  }
+.star-rating span {
+  color: #ccc;
+  transition: color 0.2s;
+}
 
-  .star-rating span.active {
-    color: #ffcc00;
-  }
+.star-rating span.active {
+  color: #ffcc00;
+}
 
-  .star-rating span:hover {
-    color: #ffcc00;
-  }
-  .film-detail__rating button {
-    margin-top: 10px;
-    padding: 8px 16px;
-    background-color: #ff4444;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-  }
+.star-rating span:hover {
+  color: #ffcc00;
+}
 
-  .film-detail__rating button:hover {
-    background-color: #cc0000;
-  }
+.film-detail__rating button {
+  margin-top: 10px;
+  padding: 8px 16px;
+  background-color: #ff4444;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.film-detail__rating button:hover {
+  background-color: #cc0000;
+}
