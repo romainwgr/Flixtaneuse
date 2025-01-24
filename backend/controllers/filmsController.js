@@ -105,7 +105,6 @@ const searchFilmByTitle = async (req, res) => {
         })
             .limit(10); 
         
-        console.log(films);
       
         if (films.length === 0) {
             return res.status(404).json({ message: 'Aucun film trouvé.' });
@@ -135,15 +134,12 @@ const getFilmById = async (req, res) => {
             return res.status(404).json({ message: 'Film non trouvé.' });
         }
 
-        console.log("Film trouvé :", film);
 
         // Charger les acteurs manuellement
         const actors = await Actor.find({ _id: { $in: film.actors || [] } });
-        console.log("Acteurs associés :", actors);
 
         // Charger les directeurs manuellement
         const directors = await Director.find({ _id: { $in: film.directors || [] } });
-        console.log("Directeurs associés :", directors);
 
         res.json({
             ...film.toObject(),

@@ -22,9 +22,8 @@
         <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M7.793 19.707a1 1 0 0 1 0-1.414L14.086 12L7.793 5.707a1 1 0 0 1 1.414-1.414l6.293 6.293a2 2 0 0 1 0 2.828l-6.293 6.293a1 1 0 0 1-1.414 0" clip-rule="evenodd"/></svg>      
       </button>
     </div>
-    <!-- Liste des films + par acteurs-->
     <h2>Liste des films</h2>
-    <div class="film-container">
+    <div class="film-container" v-if="films.length">
       <FilmCard
         v-for="film in films"
         :key="film._id"
@@ -34,20 +33,44 @@
     <ActorFilm />
     <DirectorFilm />
 
-    <!-- Message d'erreur si la requête échoue -->
     <p v-if="errorMessage">{{ errorMessage }}</p>
+    <!-- Indicateur de chargement -->
+    <p v-else-if="loading">Chargement des films...</p>
   </div>
   <Footer />
 </template>
 
 <script>
 import FilmCard from "@/components/film/FilmCard.vue";
-import Footer from "@/components/Footer.vue";
-import ActorFilm from "@/components/home/ActorFilm.vue";
 import DirectorFilm from "@/components/home/DirectorFilm.vue";
+import ActorFilm from "@/components/home/ActorFilm.vue";
+import Footer from "@/components/Footer.vue";
+import { useFilmStore } from "@/store/homefilmStore.js";
+
+
 
 export default {
-  name: "HomePage",
+  setup() {
+    const filmStore = useFilmStore();
+
+      // Relance les appels API
+      if (filmStore.films.length === 0) {
+        filmStore.fetchFilms();
+      }
+      if (filmStore.actors.length === 0) {
+        filmStore.fetchActorsFilms();
+      }
+      if (filmStore.directors.length === 0) {
+        filmStore.fetchDirectorsFilms();
+      }
+
+    return {
+      films: filmStore.films, // Liste des films
+      errorMessage: filmStore.errorMessage, // Message d'erreur éventuel
+      loading: filmStore.loading, // Indicateur de chargement
+    };
+  },
+
   components: {
     FilmCard,
     Footer,

@@ -37,9 +37,11 @@ app.use('/api/directors', directorsRoutes);
 const likesRoutes = require('./routes/likes.js');
 app.use('/api/likes', likesRoutes);
 
+const rechercheRoutes = require('./routes/recherche.js');
+app.use('/api/recherche', rechercheRoutes)
+
 const watchlaterRoutes =require ('./routes/watchlater.js');
 app.use('/api/watchlater', watchlaterRoutes); 
-
 
 const ratingsRoutes =require ('./routes/ratings.js');
 app.use('/api/ratings', ratingsRoutes); 

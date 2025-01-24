@@ -2,44 +2,47 @@ const User = require('../models/User');
 const argon2 = require('argon2');
 const jwt = require('jsonwebtoken');
 const Like = require('../models/Like');
-const Film = require('../models/Film');
 const Watchlater = require('../models/Watchlater');
 const Rating = require('../models/Rating'); // Importe le modèle Rating
 
 // Créer un utilisateur (inscription)
 const createUser = async (req, res) => {
-  try {
-    const { name, public_name, email, password } = req.body;
-    if (!name || !public_name || !email || !password) {
-      return res.status(400).json({ message: 'Tous les champs obligatoires doivent être remplis.' });
+    try {
+        const { name, public_name, email, password } = req.body;
+        // Validation des champs requis
+        if (!name || !public_name || !email || !password) {
+            return res.status(400).json({ message: 'Tous les champs obligatoires doivent être remplis.' });
+        }
+
+        // Vérification de l'existence d'un utilisateur
+        const existingUser = await User.findOne({ $or: [{ email }, { public_name }] });
+        if (existingUser) {
+            return res.status(400).json({ message: 'Email ou pseudonyme déjà utilisé.' });
+        }
+
+        // Hachage sécurisé du mot de passe avec Argon2
+        const hashedPassword = await argon2.hash(password);
+
+        const user = new User({
+            name,
+            public_name,
+            email,
+            password: hashedPassword
+            
+        });
+
+        await user.save();
+        res.status(201).json({ message: 'Utilisateur créé avec succès.', user });
+    } catch (err) {
+        res.status(500).json({ message: 'Erreur lors de la création de l’utilisateur.', error: err.message });
     }
-
-    const existingUser = await User.findOne({ $or: [{ email }, { public_name }] });
-    if (existingUser) {
-      return res.status(400).json({ message: 'Email ou pseudonyme déjà utilisé.' });
-    }
-
-    const hashedPassword = await argon2.hash(password);
-
-    const user = new User({
-      name,
-      public_name,
-      email,
-      password: hashedPassword,
-    });
-
-    await user.save();
-    res.status(201).json({ message: 'Utilisateur créé avec succès.', user });
-  } catch (err) {
-    res.status(500).json({ message: 'Erreur lors de la création de l’utilisateur.', error: err.message });
-  }
-};
+}
 
 // Se connecter (authentification)
 const loginUser = async (req, res) => {
-  console.log('Début de la fonction loginUser');
   try {
     const { email, password } = req.body;
+
 
     if (!email || !password) {
       console.warn("Email ou mot de passe manquant.");
@@ -52,15 +55,7 @@ const loginUser = async (req, res) => {
       return res.status(404).json({ message: 'Utilisateur non trouvé.' });
     }
 
-    console.log("Utilisateur trouvé :", {
-      id: user._id,
-      email: user.email,
-      public_name: user.public_name,
-      password: user.password,
-    });
-
     const isPasswordValid = await argon2.verify(user.password, password);
-    console.log("Résultat de la vérification du mot de passe :", isPasswordValid);
 
     if (!isPasswordValid) {
       console.warn("Mot de passe incorrect pour l'utilisateur :", email);

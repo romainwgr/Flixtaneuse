@@ -1,6 +1,3 @@
-<!-- 
-  Page de recherche
--->
 <template>
   <div class="search-view">
     <h2>Rechercher un film</h2>
@@ -9,28 +6,46 @@
         type="text"
         class="search-bar"
         v-model="searchQuery"
-        @input="handleSearch"
+        @input="updateSearchQuery($event.target.value)"
         placeholder="Entrez le titre du film"
       />
     </div>
 
-    <!-- Résultats de la recherche -->
-    <div v-if="films.length" class="films-grid">
-      <FilmCard 
-        v-for="film in films" 
-        :key="film._id" 
-        :film="film" 
-      />
-      
-    </div>
-
-    <!-- Message si aucun résultat trouvé -->
-    <p v-else-if="searchQuery.trim() && !isLoading">
-      Aucun film trouvé pour "{{ searchQuery }}"
+    <!-- Message de caractères insuffisants -->
+    <p v-if="searchQuery.trim().length > 0 && searchQuery.trim().length < 2">
+      Écrire au moins 2 lettres pour lancer une recherche
     </p>
 
-    <!-- Indicateur de chargement -->
-    <p v-if="isLoading">Recherche en cours...</p>
+    <!-- Résultats/Chargement/Message vide -->
+    <div v-else>
+      <!-- Résultats de la recherche -->
+      <p v-if="searchDuration">Temps du traitement de la recherche : {{ searchDuration }} ms</p>
+
+      <div v-if="films.length" class="films-grid">
+        <FilmCard 
+          v-for="film in films" 
+          :key="film._id" 
+          :film="film" 
+        />
+        <div v-if="showLoadMore" class="load-more">
+            <button 
+              @click="loadMore"
+              :disabled="loading"
+              class="load-more-btn"
+            >
+              Voir plus
+            </button>
+          </div>
+      </div>
+      
+      <!-- Indicateur de chargement -->
+      <p v-if="loading">Recherche en cours...</p>
+
+      <!-- Message si aucun résultat trouvé -->
+      <p v-if="!loading && films.length === 0 && searchQuery.trim().length >= 2">
+        Aucun film trouvé pour "{{ searchQuery }}"
+      </p>
+    </div>
   </div>
   <Footer />
 </template>
@@ -38,69 +53,43 @@
 <script>
 import FilmCard from "@/components/film/FilmCard.vue";
 import Footer from "@/components/Footer.vue";
+import { useSearchStore } from "@/store/searchfilmStore.js";
+import { computed, watch } from "vue";
 
 export default {
   components: {
     FilmCard,
-    Footer
-
+    Footer,
   },
-  data() {
-    return {
-      searchQuery: "", // Requête de recherche entrée par l'utilisateur
-      films: [], // Résultats de la recherche
-      isLoading: false, // Indicateur de chargement
-      searchTimeout: null, // Timeout pour limiter les appels API
+  setup() {
+    const searchStore = useSearchStore();
+
+    const searchQuery = computed(() => searchStore.searchQuery);
+    const films = computed(() => searchStore.films);
+    const loading = computed(() => searchStore.loading);
+    const searchDuration = computed(() => searchStore.searchDuration);
+    const showLoadMore = computed(() => searchStore.hasMoreResults && !searchStore.loading);
+
+
+    const updateSearchQuery = (value) => {
+      searchStore.setSearchQuery(value);
+      searchStore.handleSearch(value);
     };
-  },
-  methods: {
-    handleSearch() {
-      if (this.searchTimeout) {
-        clearTimeout(this.searchTimeout); // Réinitialise le timeout si une nouvelle saisie est effectuée
-      }
 
-      // Si la barre de recherche est vide
-      if (!this.searchQuery.trim()) {
-        this.films = [];
-        return;
-      }
 
-      // Délai avant de lancer la recherche pour éviter trop de requêtes
-      this.searchTimeout = setTimeout(() => {
-        this.searchFilm();
-      }, 500); // 500ms de délai
-    },
-    async searchFilm() {
-      this.isLoading = true; // Active l'indicateur de chargement
+    const loadMore = () => {
+      searchStore.loadMore();
+    };
 
-      try {
-        // Appel API mis à jour pour correspondre à votre nouvelle base de données
-        const response = await fetch(
-          `http://localhost:3000/api/films/search?title=${encodeURIComponent(
-            this.searchQuery
-          )}`
-        );
-
-        if (!response.ok) {
-          throw new Error(`Erreur HTTP : ${response.status}`);
-        }
-
-        const data = await response.json();
-
-        // Ajoute une vérification pour s'assurer que la réponse a une structure attendue
-        if (Array.isArray(data)) {
-          this.films = data; // Stocke les films retournés
-        } else {
-          console.warn("Structure inattendue de la réponse API :", data);
-          this.films = [];
-        }
-      } catch (error) {
-        console.error("Erreur lors de la recherche :", error);
-        this.films = []; // Vide les résultats en cas d'erreur
-      } finally {
-        this.isLoading = false; // Désactive l'indicateur de chargement
-      }
-    },
+    return {
+      searchQuery,
+      films,
+      loading,
+      searchDuration,
+      showLoadMore,
+      updateSearchQuery,
+      loadMore,
+    };
   },
 };
 </script>

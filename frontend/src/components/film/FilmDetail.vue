@@ -1,5 +1,9 @@
 <template>
+      
+
   <div v-if="film" class="film-detail">
+    <button @click="$router.back()" class="back-button">Retour</button>
+
     <!-- Section Image -->
     <div class="film-detail__image-container">
       <img 
