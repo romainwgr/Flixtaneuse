@@ -21,7 +21,6 @@ router.get("/profile", isAuthenticated, usersController.getUserProfile);
 // router.get('/:id', usersController.getUserById);
 
 // Mettre à jour le profil de l'utilisateur
-router.put('/:id', isAuthenticated,usersController.updateUserProfile);
 
 // // Mettre à jour l'image de profil
 // router.patch('/:id/image', usersController.updateProfileImage);
@@ -29,6 +28,11 @@ router.put('/:id', isAuthenticated,usersController.updateUserProfile);
 // Récupérer les films aimés
 router.get('/profile/liked-films', isAuthenticated,usersController.getLikedFilms);
 
+router.get('/profile/watch-later',isAuthenticated,usersController.getWatchLater);
+
+router.get('/profile/rated-films',isAuthenticated,usersController.getRatedFilms);
+
+router.post('/profile/modif-user',isAuthenticated,usersController.updateUserProfile);
 // // Ajouter un film aux films aimés
 // router.post('/:id/liked-movies', usersController.addLikedMovie);
 
@@ -43,5 +47,8 @@ router.get('/profile/liked-films', isAuthenticated,usersController.getLikedFilms
 
 // Supprimer un utilisateur
 router.delete('/:id', isAuthenticated,usersController.deleteUser);
+
+router.put('/:id', isAuthenticated,usersController.updateUserProfile);
+
 
 module.exports = router;

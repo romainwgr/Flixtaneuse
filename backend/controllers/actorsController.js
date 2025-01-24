@@ -1,6 +1,7 @@
 // backend/controllers/actorsController.js
 const Actor = require('../models/Actor');
 const Film = require('../models/Film');
+const { getActorFilmsById } = require('./utils/utils.js'); 
 
 
 // Rechercher un acteur par nom
@@ -50,8 +51,32 @@ const getActorById = async (req, res) => {
 
 
   
+  const getFamousActorsFilms = async (req, res) => {
+    try {
+        const famous_actors = [
+          '2130', '70', '1', '1570', '2381', '1396', '604', '2102', '2466', '16715', '912', '1793', '1251', '862', '783', '16069', '5310', '77', '824', '132'
+        ];
+
+        // Sélectionner 5 acteurs au hasard
+        const selectedIds = famous_actors.sort(() => 0.5 - Math.random()).slice(0, 5);
+
+        // Récupérer les films associés à ces acteurs dans la base de données
+        const results = await Promise.all(
+          selectedIds.map(async (id) => {
+              return await getActorFilmsById(id);
+          })
+      );
+
+      // Envoyer le résultat au client
+      res.status(200).json(results);
+    } catch (error) {
+        console.log("Erreur lors de la récupération des films des acteurs connus:", error);
+        res.status(500).json({ message: "Une erreur est survenue." });
+    }
+};
 
 module.exports = {
   searchActorByName,
   getActorById,
+  getFamousActorsFilms
 };

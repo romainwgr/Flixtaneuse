@@ -1,0 +1,49 @@
+.search-view {
+    min-height: 71.5vh;
+    margin-top: 2em;
+}
+
+.films-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    gap: 30px;
+    margin-top: 30px;
+    margin-inline: 30px;
+    font-family: system-ui, Roboto;
+}
+
+.search-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+}
+
+.search-bar {
+    width: 45%;
+    height: 40px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    text-indent: 10px;
+    font-size: 16px;
+}
+
+
+
+.search-view p,
+.search-view h2 {
+    color: white;
+    text-align: center;
+}
+
+.search-view h2 {
+    font-family: Lalezar;
+    font-weight: 200;
+    margin-top: 1.5em;
+}
+
+.info-limit {
+    text-align: center;
+    font-size: 14px;
+    color: gray;
+    margin-top: 10px;
+}

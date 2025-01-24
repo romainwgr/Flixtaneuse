@@ -3,41 +3,54 @@
 -->
 <template>
   <footer class="footer">
-    <p>&copy; 2024 - Bourse Spéciale</p>
+    <div class="partie_haute">
+      <div class="start">
+        <p class="logo-title">FLIXTANEUSE</p>
+        <p>&copy; 2025 FlixTaneuse, tous droits réservés</p>
+      </div>
+      <div class="end">
+        <div>
+          <ul>
+            <li v-for="(link, index) in filteredLinks" :key="index">
+              <router-link :to="link.path">{{ link.name }}</router-link>
+            </li>
+          </ul>
+        </div>
+        <div>
+          <p>A propos de nous</p>
+          <p>Contactez-nous</p>
+        </div>
+      </div>
+    </div>
+    <div class="partie_basse">
+      <p>Mentions légales</p>
+      <p>Politique de confidentialité</p>
+    </div>
   </footer>
 </template>
 
 <script>
+import navigationLinks from '@/config/navigation.js';
+
 export default {
-  name: 'Footer'
+  name: 'Footer',
+  data() {
+    return {
+      navigationLinks
+    };
+  },
+  computed: {
+    filteredLinks() {
+      return this.navigationLinks.filter(link => link.showInNavbar
+      );
+    }
+  }
 };
 </script>
 
 <style scoped>
-
-html, body {
-  margin: 0;
-  padding: 0;
-  height: 100%; 
-}
-
-#app {
-  display: flex;
-  flex-direction: column;
-  min-height: 100%;
-}
-
-main {
-  flex: 1;
-}
-
-.footer {
-  background-color: #1A1A1A;
-  color: #fff;
-  padding: 0.5em;
-  text-align: center;
-  width: 100%;
-  position: fixed;
-  bottom: 0;
-}
+  @import "@/css/composents/Footer.css";
+  @import "@/css/logo.css";
+  @import "@/css/police.css";
+  
 </style>

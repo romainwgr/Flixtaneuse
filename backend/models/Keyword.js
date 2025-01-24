@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 // Définition du schéma Keyword
 const keywordSchema = new mongoose.Schema({
   _id: { 
-    type: Number, 
+    type: mongoose.Schema.Types.ObjectId, 
     required: true
   },
   name: { 
@@ -12,7 +12,8 @@ const keywordSchema = new mongoose.Schema({
   },
   movies: [
     {
-      type: Number, // ID des films associés au mot-clé
+      type: mongoose.Schema.Types.ObjectId, 
+      ref: 'Film', 
       required: true
     }
   ]

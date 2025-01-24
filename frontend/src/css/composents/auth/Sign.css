@@ -1,0 +1,91 @@
+.sign h3 {
+    text-align: start;
+    color: white;
+    font-family: Lalezar;
+    font-weight: 200;
+    margin-bottom: 0;
+    margin-top: 0;
+}
+
+.sign hr {
+    margin-top: 0;
+    width: 15%;
+}
+
+.sign .title>hr {
+    margin-left: 0;
+    margin-bottom: 1.5em;
+}
+
+.sign form>div {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 1em;
+}
+
+.sign form>hr {
+    margin-top: 1em;
+}
+
+.sign label {
+    margin-left: 1.5em;
+    margin-bottom: 0.2em;
+    font-family: system-ui, Roboto;
+    font-weight: bold;
+    font-size: 14px;
+    color: white;
+    text-align: start;
+}
+
+.sign input {
+    width: 90%;
+    padding: 0.5em;
+    margin-bottom: 1em;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    margin: auto;
+}
+
+.sign button {
+    width: 70%;
+    height: 3.5em;
+    padding: 0.7em;
+    margin-top: 2em;
+    background-color: #007bff;
+    font-family: system-ui, Roboto;
+    font-weight: 500;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.sign button:hover {
+    background-color: #0056b3;
+}
+
+.success {
+    color: green;
+    margin-top: 1em;
+}
+
+.error {
+    color: red;
+    margin-top: 1em;
+}
+
+@media (max-width: 600px) {
+    .signup {
+        padding: 15px;
+    }
+  
+    .signup input {
+        font-size: 14px;
+        padding: 8px;
+    }
+  
+    .signup button {
+        font-size: 14px;
+        padding: 10px;
+    }
+  }

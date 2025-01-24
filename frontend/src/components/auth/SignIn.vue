@@ -2,27 +2,32 @@
   Composant qui gère la connexion mail/mdp
 -->
 <template>
-  <div class="login-form">
+  <div class="sign">
+    <div class="title">
+      <h3>S'identifier</h3>
+      <hr>
+    </div>
     <form @submit.prevent="handleLogin">
       <div>
+        <label for="email">Email</label>
         <input
           type="email"
           id="email"
           v-model="formData.email"
           required
-          placeholder="Entrez votre email"
         />
       </div>
       <div>
+        <label for="password">Mot de passe</label>
         <input
           type="password"
           id="password"
           v-model="formData.password"
           required
-          placeholder="Entrez votre mot de passe"
         />
       </div>
       <button type="submit">Se connecter</button>
+      <hr>
     </form>
     <p v-if="errorMessage" class="error">{{ errorMessage }}</p>
     <p v-if="successMessage" class="success">{{ successMessage }}</p>
@@ -73,35 +78,8 @@ export default {
 };
 </script>
 
-  <style scoped>
- 
- 
-  .login-form input {
-    width: 80%;
-    padding: 0.5em;
-    margin-bottom: 1em;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  .login-form button {
-    width: 85%;
-    padding: 0.7em;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  .login-form button:hover {
-    background-color: #0056b3;
-  }
-  .success {
-    color: green;
-    margin-top: 1em;
-  }
-  .error {
-    color: red;
-    margin-top: 1em;
-  }
-  </style>
+<style scoped>
+  @import "@/css/police.css";
+  @import "@/css/composents/auth/Sign.css";
+</style>
   

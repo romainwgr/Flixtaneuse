@@ -10,6 +10,7 @@
 Sur le dossier backend :
    - npm install
    - npm start
+
 le dossier backend permet de créer une api utilisable dans le front end qui permet de faire des opérations sur la base de données (CRUD)
 
 Sur le dossier frontend :

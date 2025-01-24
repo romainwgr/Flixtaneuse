@@ -1,0 +1,35 @@
+body {
+    background-color: #13101E;
+    margin: 0;
+}
+
+input::placeholder {
+    font-family: system-ui, Roboto;
+}
+
+input:focus {
+    outline: 2px solid #61dafb;
+}
+
+input {
+    font-family: system-ui, Roboto;
+}
+
+.back-button {
+    margin-top: 6em;
+    margin-left: 5em;
+    color: white;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    cursor: pointer;
+}
+
+.load-more-btn {
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: none;
+    text-decoration: underline;
+    font-size: 1.2em;
+    margin-top: 1em;
+    
+}

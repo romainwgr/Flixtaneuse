@@ -1,111 +1,81 @@
 <template>
-    <div class="profile-page">
-      <!-- Affichage du loader pendant la vérification de l'authentification -->
-      <div v-if="isLoading">
-        <p>Chargement...</p>
-      </div>
-      <!-- Affichage conditionnel : utilisateur authentifié ou non -->
-      <div v-else-if="isAuthenticated">
-        <Profile :user="user" />
-      </div>
-      <div v-else>
-        <Authentication @authenticated="onAuthenticated" />
-      </div>
+  <div class="profile-page">
+    <div v-if="isLoading">
+      <p>Chargement...</p>
     </div>
-  </template>
-  
-  <script>
-  import Authentication from "@/components/auth/Authentication.vue";
-  import Profile from "@/components/profile/Profile.vue";
-  
-  export default {
-    name: "ProfilePage",
-    components: {
-      Authentication,
-      Profile,
-    },
-    data() {
-      return {
-        isAuthenticated: false,
-        user: null,
-        isLoading: true, // Ajout d'un état de chargement
-      };
-    },
-    methods: {
-      async checkAuthentication() {
-        try {
-          const token = localStorage.getItem('token'); 
-  
-          // Simuler un délai de 0,2 seconde
-          await new Promise(resolve => setTimeout(resolve, 200));
+    <div v-else-if="isAuthenticated">
+      <Profile :user="user" @logout="handleLogOut" @update-user="handleUpdateUser" />
+    </div>
+    <div v-else>
+      <Authentication @authenticated="onAuthenticated" />
+    </div>
+  </div>
+</template>
 
-          console.log(this.user); // Vérifie que les données incluent ce dont tu as besoin
+<script>
+import Authentication from "@/components/auth/Authentication.vue";
+import Profile from "@/components/profile/Profile.vue";
 
-  
-          const response = await fetch("http://localhost:3000/api/users/profile", {
-            method: "GET",
-            headers: {
-              Authorization: `Bearer ${token}`, // Ajoutez le token dans l'en-tête Authorization
-            },
-          });
-  
-          if (response.ok) {
-            const userData = await response.json();
-            this.user = userData;
-            this.isAuthenticated = true;
-          } else {
-            this.isAuthenticated = false;
-          }
-        } catch (error) {
-          console.error("Erreur lors de la vérification de l'authentification :", error);
+export default {
+  name: "ProfilePage",
+  components: {
+    Authentication,
+    Profile,
+  },
+  data() {
+    return {
+      isAuthenticated: false,
+      user: null,
+      isLoading: true,
+    };
+  },
+  methods: {
+    handleLogOut() {
+      localStorage.removeItem('token');
+      this.user = null;
+      this.isAuthenticated = false;
+    },
+    async checkAuthentication() {
+      try {
+        const token = localStorage.getItem('token');
+        const response = await fetch("http://localhost:3000/api/users/profile", {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (response.ok) {
+          const userData = await response.json();
+          this.user = userData;
+          this.isAuthenticated = true;
+        } else {
           this.isAuthenticated = false;
-        } finally {
-          this.isLoading = false; // Désactiver le mode chargement une fois terminé
         }
+      } catch (error) {
+        console.error("Erreur lors de la vérification de l'authentification :", error);
+        this.isAuthenticated = false;
+      } finally {
+        this.isLoading = false;
+      }
     },
-      onAuthenticated(userData) {
-        // Mise à jour de l'état après l'authentification
-        this.user = userData;
-        this.isAuthenticated = true;
-        this.isLoading = false; // Assurez-vous que le chargement est terminé
-      },
+    onAuthenticated(userData) {
+      this.user = userData;
+      this.isAuthenticated = true;
+      this.isLoading = false;
     },
-    mounted() {
-      this.checkAuthentication();
+    handleUpdateUser(updatedUser) {
+      console.log("Événement update-user reçu avec les données :", updatedUser); // Debugging
+      this.user = updatedUser; // Mettre à jour les données locales
+      console.log("Données utilisateur mises à jour :", this.user); // Debugging
     },
-  };
-    </script>
-    
-    <style scoped>
-    .profile {
-      max-width: 600px;
-      margin: 0 auto;
-      padding: 1em;
-    }
-    
-    .profile-details {
-      background-color: #f9f9f9;
-      padding: 1em;
-      border-radius: 8px;
-      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    }
-    
-    button {
-      display: block;
-      margin: 1em auto;
-      padding: 0.5em 1em;
-      border: none;
-      background-color: #333;
-      color: #fff;
-      border-radius: 4px;
-      cursor: pointer;
-    }
-    
-    button:hover {
-      background-color: #555;
-    }
-    </style>
-    
-     
+  },
+  mounted() {
+    this.checkAuthentication();
+  },
+};
+</script>
 
-  
+<style scoped>
+  @import "@/css/views/Profile.css";
+</style>
