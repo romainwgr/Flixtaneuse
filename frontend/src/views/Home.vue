@@ -7,7 +7,11 @@
           v-for="(image, index) in images"
           :key="index"
           class="slider-image"
-          :class="{ active: index === currentImageIndex, next: index === nextImageIndex }"
+          :class="{
+            active: index === currentImageIndex,
+            'transition-right': slideDirection === 'right' && index !== currentImageIndex,
+            'transition-left': slideDirection === 'left' && index !== currentImageIndex,
+          }"
           :style="{ backgroundImage: `url(${image})` }"
         ></div>
       </div>
@@ -36,7 +40,6 @@
   <Footer />
 </template>
 
-
 <script>
 import FilmCard from "@/components/film/FilmCard.vue";
 import Footer from "@/components/Footer.vue";
@@ -52,7 +55,7 @@ export default {
     DirectorFilm,
   },
   data() {
-    return { 
+    return {
       images: [ // Liens des images du carousel
         "https://alarencontreduseptiemeart.com/wp-content/uploads/2014/12/Citizen-Kane-3.jpg",
         "https://i.redd.it/the-shawshank-redemption-1994-v0-89w86dd84lpd1.jpg?width=1280&format=pjpg&auto=webp&s=8b1123e48aa750065503b7d5e91df3be66c92fb0",
@@ -75,25 +78,35 @@ export default {
         "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3ugX6nKTpjpuZZSj4fS4wgjhyNqB0aihQaSFAUyhzM3hIDRfkSAYHVBu5pgQbbSW-DAMZpGRXbHrG6YB3-NlI8G5YZdVFdvlURxPrVvcAxzTz6ZB9XXu_KOLPayFMjlXkzomj4ThfTuU/s1600/vlcsnap-2013-02-13-22h04m27s69.jpg",
         "https://laac-auvergnerhonealpes.org/wp-content/uploads/2017/03/OverlookHotelShining.png",
       ],
-      currentImageIndex: 0, // Index actuel de l'image
-      autoSlide: null, // Intervalle pour le défilement automatique
-      films: [], // Liste des films
-      errorMessage: "", // Message d'erreur
+      currentImageIndex: 0,
+      autoSlide: null,
+      films: [],
+      errorMessage: "",
+      slideDirection: "right", // Détermine la direction de la transition
     };
   },
-  methods: { // Méthodes du carousel
+  methods: {
     startAutoSlide() {
       if (this.autoSlide) {
         clearInterval(this.autoSlide);
       }
-      this.autoSlide = setInterval(this.nextImage, 7500); 
+      this.autoSlide = setInterval(this.nextImage, 7500); // Défile toutes les 7,5 secondes
     },
     nextImage() {
-      this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+      this.slideDirection = "right"; // Définit la direction vers la droite
+      this.updateIndexes(1); // Passe à l'image suivante
+      this.startAutoSlide(); // Redémarre le compteur après un clic
+
     },
     previousImage() {
+      this.slideDirection = "left"; // Définit la direction vers la gauche
+      this.updateIndexes(-1); // Revient à l'image précédente
+      this.startAutoSlide(); // Redémarre le compteur après un clic
+    },
+    updateIndexes(step) {
+      const imagesLength = this.images.length;
       this.currentImageIndex =
-        (this.currentImageIndex - 1 + this.images.length) % this.images.length;
+        (this.currentImageIndex + step + imagesLength) % imagesLength;
     },
     async fetchFilms() {
       try {
@@ -102,7 +115,7 @@ export default {
           throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
         }
         const data = await response.json();
-        this.films = data; // Récupère les films et les stocke
+        this.films = data; // Stocke les films récupérés
       } catch (error) {
         this.errorMessage =
           "Erreur lors de la récupération des films : " + error.message;
@@ -122,7 +135,7 @@ export default {
 };
 </script>
 
-<style >
-  @import "@/css/logo.css";
-  @import "@/css/views/Home.css";
+<style>
+@import "@/css/logo.css";
+@import "@/css/views/Home.css";
 </style>
