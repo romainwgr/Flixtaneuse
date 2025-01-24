@@ -12,8 +12,8 @@
     </div>
 
     <!-- Message de caractères insuffisants -->
-    <p v-if="searchQuery.trim().length > 0 && searchQuery.trim().length < 3">
-      Écrire au moins 3 lettres pour lancer une recherche
+    <p v-if="searchQuery.trim().length > 0 && searchQuery.trim().length < 2">
+      Écrire au moins 2 lettres pour lancer une recherche
     </p>
 
     <!-- Résultats/Chargement/Message vide -->
@@ -42,7 +42,7 @@
       <p v-if="loading">Recherche en cours...</p>
 
       <!-- Message si aucun résultat trouvé -->
-      <p v-if="!loading && films.length === 0 && searchQuery.trim().length >= 3">
+      <p v-if="!loading && films.length === 0 && searchQuery.trim().length >= 2">
         Aucun film trouvé pour "{{ searchQuery }}"
       </p>
     </div>

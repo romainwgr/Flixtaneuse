@@ -28,7 +28,7 @@ export const useSearchStore = defineStore('searchStore', {
         return;
       }
 
-      if (this.searchQuery.length < 3) {
+      if (this.searchQuery.length < 2) {
         // Si la recherche contient moins de 3 caractères, ne pas lancer l'appel
         this.films = [];
         this.searchDuration = null;

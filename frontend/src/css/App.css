@@ -2,3 +2,15 @@ body {
     background-color: #13101E;
     margin: 0;
 }
+
+input::placeholder {
+    font-family: system-ui, Roboto;
+}
+
+input:focus {
+    outline: 2px solid #61dafb;
+}
+
+input {
+    font-family: system-ui, Roboto;
+}

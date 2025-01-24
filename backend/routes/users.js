@@ -28,6 +28,11 @@ router.get("/profile", isAuthenticated, usersController.getUserProfile);
 // Récupérer les films aimés
 router.get('/profile/liked-films', isAuthenticated,usersController.getLikedFilms);
 
+router.get('/profile/watch-later',isAuthenticated,usersController.getWatchLater);
+
+router.get('/profile/rated-films',isAuthenticated,usersController.getRatedFilms);
+
+router.post('/profile/modif-user',isAuthenticated,usersController.updateUserProfile);
 // // Ajouter un film aux films aimés
 // router.post('/:id/liked-movies', usersController.addLikedMovie);
 

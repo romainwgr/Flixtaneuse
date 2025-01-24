@@ -1,3 +1,6 @@
+<!--  
+  Composant qui gère l'inscription
+-->
 <template>
   <div class="sign">
     <div class="title">

@@ -39,6 +39,15 @@ app.use('/api/likes', likesRoutes);
 
 const rechercheRoutes = require('./routes/recherche.js');
 app.use('/api/recherche', rechercheRoutes)
+
+const watchlaterRoutes =require ('./routes/watchlater.js');
+app.use('/api/watchlater', watchlaterRoutes); 
+
+const ratingsRoutes =require ('./routes/ratings.js');
+app.use('/api/ratings', ratingsRoutes); 
+
+
+
 // Route de test pour vérifier que le serveur fonctionne
 app.get('/', (req, res) => {
   res.send("Bienvenue sur l'API de films !");
