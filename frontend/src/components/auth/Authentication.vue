@@ -1,3 +1,4 @@
+<!-- Vue d'authentification -->
 <template>
   <div class="bg"> 
     <div class="page">

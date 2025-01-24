@@ -1,8 +1,8 @@
 .search-view {
-    min-height: 60vh;
+    min-height: 71.5vh;
     margin-top: 2em;
 }
-  
+
 .films-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
@@ -11,7 +11,7 @@
     margin-inline: 30px;
     font-family: system-ui, Roboto;
 }
-  
+
 .search-container {
     display: flex;
     justify-content: center;
@@ -26,9 +26,9 @@
     text-indent: 10px;
     font-size: 16px;
 }
-  
 
-  
+
+
 .search-view p,
 .search-view h2 {
     color: white;
@@ -40,7 +40,7 @@
     font-weight: 200;
     margin-top: 1.5em;
 }
-  
+
 .info-limit {
     text-align: center;
     font-size: 14px;

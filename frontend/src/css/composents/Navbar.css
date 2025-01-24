@@ -57,13 +57,9 @@ nav a.router-link-exact-active img:not(.logo img){
 }
   
 .navlinks img {
-    width: 32px;
-}
-  
-.navlinks img[alt="Accueil"] {
     width: 42px;
 }
-  
+
 .navbar.scrolled {
       background-color: #110c16;
       height: 2.8em;

@@ -1,9 +1,6 @@
 <template>
   <div class="home-page">
-    <div class="title">
-      <h1 class="logo-title">FLIXTANEUSE</h1>
-    </div>
-
+    <!-- Carousel d'images -->
     <div class="image-slider">
       <div class="slider-container">
         <div
@@ -14,10 +11,14 @@
           :style="{ backgroundImage: `url(${image})` }"
         ></div>
       </div>
-      <button @click="previousImage" class="nav-button previous-button">‹</button>
-      <button @click="nextImage" class="nav-button next-button">›</button>
+      <button @click="previousImage" class="nav-button previous-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M16.207 4.293a1 1 0 0 1 0 1.414L9.914 12l6.293 6.293a1 1 0 0 1-1.414 1.414L8.5 13.414a2 2 0 0 1 0-2.828l6.293-6.293a1 1 0 0 1 1.414 0" clip-rule="evenodd"/></svg>
+      </button>
+      <button @click="nextImage" class="nav-button next-button">
+        <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M7.793 19.707a1 1 0 0 1 0-1.414L14.086 12L7.793 5.707a1 1 0 0 1 1.414-1.414l6.293 6.293a2 2 0 0 1 0 2.828l-6.293 6.293a1 1 0 0 1-1.414 0" clip-rule="evenodd"/></svg>      
+      </button>
     </div>
-
+    <!-- Liste des films + par acteurs-->
     <h2>Liste des films</h2>
     <div class="film-container">
       <FilmCard
@@ -51,8 +52,8 @@ export default {
     DirectorFilm,
   },
   data() {
-    return {
-      images: [
+    return { 
+      images: [ // Liens des images du carousel
         "https://alarencontreduseptiemeart.com/wp-content/uploads/2014/12/Citizen-Kane-3.jpg",
         "https://i.redd.it/the-shawshank-redemption-1994-v0-89w86dd84lpd1.jpg?width=1280&format=pjpg&auto=webp&s=8b1123e48aa750065503b7d5e91df3be66c92fb0",
         "https://media.vanityfair.fr/photos/60d34fef828a7f42e233bd09/16:9/w_1280,c_limit/vf_casablanca_slider_9411.jpeg",
@@ -80,12 +81,12 @@ export default {
       errorMessage: "", // Message d'erreur
     };
   },
-  methods: {
+  methods: { // Méthodes du carousel
     startAutoSlide() {
       if (this.autoSlide) {
         clearInterval(this.autoSlide);
       }
-      this.autoSlide = setInterval(this.nextImage, 7500); // Défile toutes les 7,5 secondes
+      this.autoSlide = setInterval(this.nextImage, 7500); 
     },
     nextImage() {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
@@ -122,80 +123,6 @@ export default {
 </script>
 
 <style >
-.image-slider {
-  position: relative;
-  width: 100%;
-  height: 620px;
-  overflow: hidden;
-  margin: auto;
-}
-
-.slider-container {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.slider-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-position: center;
-  opacity: 1;
-  transform: translateX(100%);
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  z-index: 0;
-}
-
-.slider-image.active {
-  opacity: 1;
-  transform: translateX(0);
-  z-index: 1;
-}
-
-.slider-image.next {
-  opacity: 1;
-  transform: translateX(0);
-  z-index: 2;
-}
-
-.nav-button {
-  position: absolute;
-  top: 50%;
-  transform: translateY(-50%);
-  background-color: rgba(0, 0, 0, 0.5);
-  border: none;
-  color: white;
-  padding: 10px 15px;
-  cursor: pointer;
-  border-radius: 50%;
-  font-size: 24px;
-  z-index: 10;
-}
-
-.previous-button {
-  left: 20px;
-}
-
-.next-button {
-  right: 20px;
-}
-
-.nav-button:hover {
-  background-color: rgba(0, 0, 0, 0.8);
-}
-
-@keyframes slide {
-  0% {
-    transform: translateX(0);
-  }
-  100% {
-    transform: translateX(-100%);
-  }
-}
   @import "@/css/logo.css";
   @import "@/css/views/Home.css";
 </style>

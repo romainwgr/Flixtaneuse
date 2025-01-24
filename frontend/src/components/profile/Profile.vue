@@ -10,7 +10,7 @@
     </div>
 
     <!-- Bouton pour passer en mode édition -->
-    <button @click="toggleEditMode">{{ isEditing ? 'Annuler' : 'Modifier le profil' }}</button>
+    <button class="modify-profile-button" @click="toggleEditMode">{{ isEditing ? 'Annuler' : 'Modifier le profil' }}</button>
 
     <!-- Formulaire de modification -->
     <div v-if="isEditing" class="edit-form">
