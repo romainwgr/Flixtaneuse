@@ -9,6 +9,25 @@
       <h2>E-mail : {{ user.email }}</h2>
     </div>
 
+    <!-- Bouton pour passer en mode édition -->
+    <button @click="toggleEditMode">{{ isEditing ? 'Annuler' : 'Modifier le profil' }}</button>
+
+    <!-- Formulaire de modification -->
+    <div v-if="isEditing" class="edit-form">
+      <form @submit.prevent="updateUser">
+        <label for="name">Nom :</label>
+        <input type="text" v-model="editedUser.name" id="name" />
+
+        <label for="public_name">Pseudo :</label>
+        <input type="text" v-model="editedUser.public_name" id="public_name" />
+
+        <label for="email">E-mail :</label>
+        <input type="email" v-model="editedUser.email" id="email" />
+
+        <button type="submit">Sauvegarder</button>
+      </form>
+    </div>
+
     <!-- Section des films favoris -->
     <div class="movie-profile-section">
       <h2>Films favoris :</h2>
@@ -72,62 +91,75 @@ export default {
       required: true,
       default: () => ({
         name: "Nom indisponible",
+        public_name: "Pseudonyme indisponible",
+        email: "Email indisponible",
         profil_image: "",
       }),
     },
+  },
+  data() {
+    return {
+      defaultImage,
+      likedFilms: [],
+      watchLaterFilms: [],
+      ratedFilms: [],
+      isEditing: false,
+      editedUser: { ...this.user },
+    };
   },
   methods: {
     handleLogOut() {
       this.$emit("logout");
     },
-
-    // Fonction pour ajouter ou retirer un film de la liste "Regarder plus tard"
-    async toggleWatchLater(filmId) {
+    toggleEditMode() {
+      this.isEditing = !this.isEditing;
+      if (!this.isEditing) {
+        this.editedUser = { ...this.user };
+      }
+    },
+    async updateUser() {
       const token = localStorage.getItem("token");
 
-      if (!token) return;
+      if (!token) {
+        console.error("Token non trouvé. Veuillez vous reconnecter.");
+        return;
+      }
 
       try {
-        const isInWatchLater = this.watchLaterFilms.some((film) => film._id === filmId);
+        const response = await fetch("http://localhost:3000/api/users/profile/modif-user", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify(this.editedUser),
+        });
 
-        if (isInWatchLater) {
-          // Retirer le film de la liste "Regarder plus tard"
-          await fetch(`http://localhost:3000/api/watchlater/${filmId}/removeFromWatchLater`, {
-            method: "DELETE",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-          this.watchLaterFilms = this.watchLaterFilms.filter((film) => film._id !== filmId);
+        if (response.ok) {
+          const result = await response.json();
+          console.log("Réponse de l'API :", result); // Debugging
+          const updatedUser = result.user;
+          console.log("Données de l'utilisateur extraites :", updatedUser); // Debugging
+          this.$emit("update-user", updatedUser);
+          this.isEditing = false;
+          alert("Profil mis à jour avec succès !");
         } else {
-          // Ajouter le film à la liste "Regarder plus tard"
-          const response = await fetch(`http://localhost:3000/api/watchlater/${filmId}/addToWatchLater`, {
-            method: "POST",
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
-          });
-
-          if (response.ok) {
-            const addedFilm = await response.json();
-            this.watchLaterFilms.push(addedFilm);
-          }
+          throw new Error(`Erreur HTTP : ${response.status}`);
         }
       } catch (error) {
-        console.error("Erreur lors de la gestion de 'Regarder Plus Tard':", error);
+        console.error("Erreur lors de la mise à jour du profil :", error.message);
+        alert("Une erreur s'est produite lors de la mise à jour du profil.");
       }
     },
   },
-  data() {
-    return {
-      defaultImage, // Image par défaut
-      likedFilms: [], // Films aimés
-      watchLaterFilms: [], // Films à regarder plus tard
-      ratedFilms: [], // Films notés
-    };
-  },
-  components: {
-    FilmCard,
+  watch: {
+    // Mettre à jour editedUser lorsque user change
+    user: {
+      immediate: true,
+      handler(newUser) {
+        this.editedUser = { ...newUser };
+      },
+    },
   },
   async created() {
     try {
@@ -177,6 +209,9 @@ export default {
     } catch (error) {
       console.error("Erreur lors de la récupération des données utilisateur :", error.message);
     }
+  },
+  components: {
+    FilmCard,
   },
 };
 </script>
