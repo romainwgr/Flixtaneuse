@@ -14,3 +14,22 @@ input:focus {
 input {
     font-family: system-ui, Roboto;
 }
+
+.back-button {
+    margin-top: 6em;
+    margin-left: 5em;
+    color: white;
+    background-color: rgba(0,0,0,0);
+    border: none;
+    cursor: pointer;
+}
+
+.load-more-btn {
+    background-color: rgba(0,0,0,0);
+    color: white;
+    border: none;
+    text-decoration: underline;
+    font-size: 1.2em;
+    margin-top: 1em;
+    
+}

@@ -1,8 +1,12 @@
 <template>
       
-
+  <div>
+    <button @click="$router.back()" class="back-button">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" fill-rule="evenodd" d="M16.207 4.293a1 1 0 0 1 0 1.414L9.914 12l6.293 6.293a1 1 0 0 1-1.414 1.414L8.5 13.414a2 2 0 0 1 0-2.828l6.293-6.293a1 1 0 0 1 1.414 0" clip-rule="evenodd"/></svg>
+      
+    </button>
   <div v-if="film" class="film-detail">
-    <button @click="$router.back()" class="back-button">Retour</button>
+    
 
     <!-- Section Image -->
     <div class="film-detail__image-container">
@@ -82,9 +86,11 @@
       <p class="film-detail__overview"><strong>Synopsis :</strong> <br>{{ film.translated_summary }}</p>
     </div>
   </div>
+  
 
   <!-- Message de chargement -->
   <p v-else class="loading">Chargement des détails du film...</p>
+</div>
 </template>
 
 <script>
