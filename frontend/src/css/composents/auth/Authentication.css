@@ -43,6 +43,8 @@
 .switch-tab {
     font-size: 14px;
     color: #666;
+    margin-top: 1.5em;
+    margin-bottom: 0;
 }
 
 .switch-tab a {

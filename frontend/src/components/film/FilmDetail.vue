@@ -11,7 +11,6 @@
 
     <!-- Section Infos -->
     <div class="film-detail__info">
-
       <div class="title-and-like">
         <h2 class="film-detail__title">{{ film.original_title }}</h2>
         <button class="liked-button" v-if="isAuthenticated" @click="toggleLike">
@@ -20,14 +19,29 @@
         <button v-if="isAuthenticated" @click="toggleWatchLater">
           {{ isInWatchLater ? "Retirer de Regarder Plus Tard" : "Ajouter à Regarder Plus Tard" }}
         </button>
-
-
       </div>
-    
 
+      <!-- Notation en étoiles -->
+      <div v-if="isAuthenticated" class="film-detail__rating">
+        <strong>Notez ce film :</strong>
+        <div class="star-rating">
+          <span 
+            v-for="star in 5" 
+            :key="star" 
+            @click="rateFilm(star)"
+            :class="{ 'active': star <= userRating }"
+          >
+            ★
+          </span>
+        </div>
+        <p v-if="userRating">Vous avez noté ce film : {{ userRating }} étoiles</p>
+        <button @click="deleteRating" v-if="userRating > 0">Supprimer ma notation</button>
+      </div>
+
+      <!-- Année de sortie -->
       <p class="film-detail__year"><strong>Année de sortie :</strong> {{ film.release_date?.split('-')[0] }}</p>
 
-      <!-- Genre -->
+      <!-- Genres -->
       <p class="film-detail__genre">
         <strong>Genres : </strong>
         <span v-for="(genre, index) in film.genres" :key="genre.id">
@@ -35,12 +49,10 @@
         </span>
       </p>
 
-      <!-- Runtime -->
+      <!-- Durée -->
       <p class="film-detail__runtime"><strong>Durée :</strong> {{ film.runtime }} min</p>
 
-
-      <!-- Section Réalisateurs -->
-
+      <!-- Réalisateurs -->
       <div class="film-detail__director" v-if="film && film.directors && film.directors.length > 0">
         <strong>Réalisateurs :</strong>
         <p>
@@ -51,9 +63,7 @@
         <strong>Réalisateurs :</strong> Non disponibles
       </div>
 
-
-      <!-- Section Acteurs -->
-
+      <!-- Acteurs -->
       <div class="film-detail__actors" v-if="film && film.actors && film.actors.length > 0">
         <strong>Acteurs :</strong>
         <p>
@@ -64,10 +74,9 @@
         <strong>Acteurs :</strong> Non disponibles
       </div>
 
-
+      <!-- Synopsis -->
       <p class="film-detail__overview"><strong>Synopsis :</strong> <br>{{ film.translated_summary }}</p>
     </div>
-    
   </div>
 
   <!-- Message de chargement -->
@@ -84,6 +93,7 @@ export default {
       isLiked: false, // État indiquant si le film est aimé
       isInWatchLater: false, // État pour la liste "Regarder Plus Tard"
       isAuthenticated: false, // Vérifie si l'utilisateur est connecté
+      userRating: 0, // Note de l'utilisateur pour ce film
     };
   },
 
@@ -155,6 +165,66 @@ export default {
         console.error("Erreur lors de la gestion de 'Regarder Plus Tard':", error);
       }
     },
+
+    // Fonction pour noter le film
+    async rateFilm(rating) {
+      const filmId = this.$route?.params?.id;
+
+      if (!filmId || !this.isAuthenticated) return;
+
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) return;
+
+        // Envoyer la note à l'API
+        const response = await fetch(`http://localhost:3000/api/ratings/${filmId}/rate`, {
+          method: "POST",
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ rating }),
+        });
+
+        if (!response.ok) throw new Error("Erreur lors de la notation du film");
+
+        // Mettre à jour la note de l'utilisateur
+        this.userRating = rating;
+      } catch (error) {
+        console.error("Erreur lors de la notation du film:", error);
+      }
+    },
+
+    // Fonction pour supprimer la notation
+    async deleteRating() {
+      const filmId = this.$route?.params?.id;
+
+      if (!filmId || !this.isAuthenticated) return;
+
+      try {
+        const token = localStorage.getItem("token");
+
+        if (!token) return;
+
+        // Envoyer une requête DELETE pour supprimer la notation
+        const response = await fetch(`http://localhost:3000/api/ratings/${filmId}/deleteRating`, {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+
+        if (!response.ok) throw new Error("Erreur lors de la suppression de la notation");
+
+        // Réinitialiser la note de l'utilisateur
+        this.userRating = 0;
+        alert("Votre notation a été supprimée avec succès.");
+      } catch (error) {
+        console.error("Erreur lors de la suppression de la notation :", error);
+        alert("Erreur lors de la suppression de la notation.");
+      }
+    },
   },
 
   // Méthode exécutée lors de la création du composant
@@ -183,14 +253,26 @@ export default {
         this.isLiked = islikedData.isLiked;
       }
 
+      // Vérifier si le film est dans la liste "Regarder Plus Tard"
       if (this.isAuthenticated) {
-        const isInWatchLaterReq= await fetch(`http://localhost:3000/api/watchlater/${filmId}/isInWatchLater`, {
+        const isInWatchLaterReq = await fetch(`http://localhost:3000/api/watchlater/${filmId}/isInWatchLater`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
         const isInWatchLaterData = await isInWatchLaterReq.json();
         this.isInWatchLater = isInWatchLaterData.isInWatchLater;
+      }
+
+      // Récupérer la note de l'utilisateur pour ce film
+      if (this.isAuthenticated) {
+        const userRatingReq = await fetch(`http://localhost:3000/api/ratings/${filmId}/userRating`, {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        });
+        const userRatingData = await userRatingReq.json();
+        this.userRating = userRatingData.rating || 0;
       }
 
       // Récupérer les réalisateurs et acteurs du film
