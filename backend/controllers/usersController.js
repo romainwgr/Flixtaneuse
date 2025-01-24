@@ -97,9 +97,16 @@ const updateUserProfile = async (req, res) => {
     const updates = req.body;
     const userId = req.user.id;
 
+
+
     if (!updates || Object.keys(updates).length === 0) {
       return res.status(400).json({ message: 'Aucune mise à jour fournie.' });
     }
+
+    if (updates.password) {
+      updates.password = await argon2.hash(updates.password);
+    }
+
 
     const updatedUser = await User.findByIdAndUpdate(userId, updates, { new: true, runValidators: true });
     if (!updatedUser) {

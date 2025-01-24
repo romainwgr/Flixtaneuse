@@ -124,7 +124,9 @@
   .edit-form button:hover {
     background-color: #45a049;
   }
-
+  .edit-form label {
+    color: white; /* Met le texte des labels en blanc */
+  }
 @media (max-width: 768px) {
     .user-profile {
         padding: 20px;
