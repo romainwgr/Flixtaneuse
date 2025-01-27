@@ -16,13 +16,12 @@ export const useFilmStore = defineStore('filmStore', {
   actions: {
     async fetchFilms() {
       try {
-        if (this.films.length === 0) { // Ne recharge que si nécessaire
           const response = await fetch('http://localhost:3000/api/films');
           if (!response.ok) {
             throw new Error(`Erreur HTTP : ${response.status}`);
           }
           this.films = await response.json();
-        }
+        
       } catch (error) {
         this.errorMessage = "Erreur lors de la récupération des films.";
         console.error(error);
