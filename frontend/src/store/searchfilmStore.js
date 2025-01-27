@@ -7,15 +7,15 @@ export const useSearchStore = defineStore('searchStore', {
     isLoading: false, // Indicateur de chargement
     searchDuration: null, // Temps de recherche
     hasMoreResults: false, // Indicateur pour le bouton "Voir plus"
-    currentLimit: 21, // Nombre de résultats à charger par page
+    currentLimit: 14, // Nombre de résultats à charger par page
     searchTimeout: null, // Timeout pour limiter les appels API
   }),
   actions: {
     setSearchQuery(query) {
-        this.searchQuery = query.trim();
+        this.searchQuery = query
     },
     handleSearch(query) {
-      this.searchQuery = query.trim();
+      this.searchQuery = query
 
       if (this.searchTimeout) {
         clearTimeout(this.searchTimeout); // Réinitialise le timeout si une nouvelle saisie est effectuée
@@ -28,26 +28,21 @@ export const useSearchStore = defineStore('searchStore', {
         return;
       }
 
-      if (this.searchQuery.length < 2) {
-        // Si la recherche contient moins de 3 caractères, ne pas lancer l'appel
-        this.films = [];
-        this.searchDuration = null;
-        return;
-      }
+  
 
       // Lancer la recherche avec un délai (300ms)
       this.searchTimeout = setTimeout(() => {
         this.searchFilm();
-      }, 300);
+      }, 500);
     },
 
     async searchFilm(loadMore = false) {
       this.isLoading = true; // Active l'indicateur de chargement
 
       if (!loadMore) {
-        this.currentLimit = 21; // Réinitialise la limite pour une nouvelle recherche
+        this.currentLimit = 14; // Réinitialise la limite pour une nouvelle recherche
       } else {
-        this.currentLimit += 21; // Augmente la limite pour charger plus de résultats
+        this.currentLimit += 14; // Augmente la limite pour charger plus de résultats
       }
 
       try {
