@@ -49,7 +49,7 @@ export default {
   methods: {
     async handleLogin() {
       try {
-        const response = await fetch("http://localhost:3000/api/users/login", {
+        const response = await fetch("https://flixtaneuse.onrender.com/api/users/login", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",

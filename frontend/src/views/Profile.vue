@@ -38,7 +38,7 @@ export default {
     async checkAuthentication() {
       try {
         const token = localStorage.getItem('token');
-        const response = await fetch("http://localhost:3000/api/users/profile", {
+        const response = await fetch("https://flixtaneuse.onrender.com/api/users/profile", {
           method: "GET",
           headers: {
             Authorization: `Bearer ${token}`,

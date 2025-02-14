@@ -69,7 +69,7 @@ export default {
   methods: {
     async handleSignUp() {
       try {
-        const response = await fetch("http://localhost:3000/api/users/new", {
+        const response = await fetch("https://flixtaneuse.onrender.com/api/users/new", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
