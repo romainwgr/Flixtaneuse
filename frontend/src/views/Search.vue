@@ -12,8 +12,8 @@
     </div>
 
     <!-- Message de caractères insuffisants -->
-    <p v-if="searchQuery.trim().length > 0 && searchQuery.trim().length < 2">
-      Écrire au moins 2 lettres pour lancer une recherche
+    <p v-if="searchQuery.trim().length > 0 && searchQuery.trim().length < 3">
+      Écrire au moins 3 lettres pour lancer une recherche
     </p>
 
     <!-- Résultats/Chargement/Message vide -->
@@ -30,7 +30,7 @@
         <div v-if="showLoadMore" class="load-more">
             <button 
               @click="loadMore"
-              :disabled="loading"
+              :disabled="isLoading"
               class="load-more-btn"
             >
               Voir plus
@@ -39,10 +39,10 @@
       </div>
       
       <!-- Indicateur de chargement -->
-      <p v-if="loading">Recherche en cours...</p>
+      <p v-if="isLoading">Recherche en cours...</p>
 
       <!-- Message si aucun résultat trouvé -->
-      <p v-if="!loading && films.length === 0 && searchQuery.trim().length >= 2">
+      <p v-if="!isLoading && films.length === 0 && searchQuery.length >= 3">
         Aucun film trouvé pour "{{ searchQuery }}"
       </p>
     </div>
@@ -66,9 +66,9 @@ export default {
 
     const searchQuery = computed(() => searchStore.searchQuery);
     const films = computed(() => searchStore.films);
-    const loading = computed(() => searchStore.loading);
+    const isLoading = computed(() => searchStore.isLoading);
     const searchDuration = computed(() => searchStore.searchDuration);
-    const showLoadMore = computed(() => searchStore.hasMoreResults && !searchStore.loading);
+    const showLoadMore = computed(() => searchStore.hasMoreResults && !searchStore.isLoading);
 
 
     const updateSearchQuery = (value) => {
@@ -84,7 +84,7 @@ export default {
     return {
       searchQuery,
       films,
-      loading,
+      isLoading,
       searchDuration,
       showLoadMore,
       updateSearchQuery,
