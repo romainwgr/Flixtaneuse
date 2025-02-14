@@ -96,7 +96,7 @@ export default {
     },
     async fetchFilms() {
       try {
-        const response = await fetch("http://localhost:3000/api/films");
+        const response = await fetch("https://flixtaneuse.onrender.com/api/films");
         if (!response.ok) {
           throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
         }
