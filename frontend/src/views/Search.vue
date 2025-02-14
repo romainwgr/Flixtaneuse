@@ -54,7 +54,7 @@
 import FilmCard from "@/components/film/FilmCard.vue";
 import Footer from "@/components/Footer.vue";
 import { useSearchStore } from "@/store/searchfilmStore.js";
-import { computed, watch } from "vue";
+import { computed } from "vue";
 
 export default {
   components: {
