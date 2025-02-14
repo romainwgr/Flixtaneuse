@@ -22,7 +22,7 @@ export const useFilmStore = defineStore('filmStore', {
             throw new Error(`Erreur HTTP : ${response.status}`);
           }
           this.films = await response.json();
-        }
+        
       } catch (error) {
         this.errorMessage = "Erreur lors de la récupération des films.";
         console.error(error);
