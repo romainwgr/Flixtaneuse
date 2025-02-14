@@ -26,14 +26,14 @@ const collectFilmIds = async (searchTerm) => {
     Actor.find({ name: { $regex: searchTerm, $options: 'i' } }),
     Film.find({ title: { $regex: searchTerm, $options: 'i' } }),
     Keyword.find({ name: { $regex: searchTerm, $options: 'i' } }),
-    Film.find({ 'genres.name': { $regex: searchTerm, $options: 'i' } })
+    // Film.find({ 'genres.name': { $regex: searchTerm, $options: 'i' } })
   ]);
 
   console.log(`Nombre de réalisateurs trouvés: ${directors.length}`);
   console.log(`Nombre d'acteurs trouvés: ${actors.length}`);
   console.log(`Nombre de films trouvés par titre: ${filmsByTitle.length}`);
   console.log(`Nombre de mots-clés trouvés: ${keywords.length}`);
-  console.log(`Nombre de films trouvés par genre: ${filmsByGenre.length}`);
+  // console.log(`Nombre de films trouvés par genre: ${filmsByGenre.length}`);
 
   // Traitement des keywords
   keywords.forEach(k => {
@@ -59,7 +59,7 @@ const collectFilmIds = async (searchTerm) => {
 
   // Ajout des films trouvés par titre et genre
   filmsByTitle.forEach(f => filmIds.add(f._id));
-  filmsByGenre.forEach(f => filmIds.add(f._id));
+  // filmsByGenre.forEach(f => filmIds.add(f._id));
 
   const endTime = performance.now();
   const duration = (endTime - startTime).toFixed(2);
@@ -106,7 +106,7 @@ const applyPreferences = async (films, preferences) => {
       }, 0);
     };
 
-    totalBoost += processCategory(film.genres, 'genres');
+    // totalBoost += processCategory(film.genres, 'genres');
     totalBoost += processCategory(film.actors.map(id => ({ id })), 'actors');
     totalBoost += processCategory(film.directors.map(id => ({ id })), 'directors');
     const filmKeywords = keywordMap.get(film._id.toString()) || [];
