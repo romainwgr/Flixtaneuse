@@ -46,7 +46,7 @@ export const useFilmStore = defineStore('filmStore', {
     },
     async fetchDirectorsFilms(){
         try {
-            if (this.actors.length === 0) { // Évite les appels inutiles
+            if (this.directors.length === 0) { 
 
             // Requête pour récupérer les réalisateurs et leurs films
             const response = await fetch("https://flixtaneuse.onrender.com/api/directors/famous"); // Remplacez par l'URL de votre backend
