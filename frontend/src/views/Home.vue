@@ -41,6 +41,8 @@ import FilmCard from "@/components/film/FilmCard.vue";
 import Footer from "@/components/Footer.vue";
 import ActorFilm from "@/components/home/ActorFilm.vue";
 import DirectorFilm from "@/components/home/DirectorFilm.vue";
+import { useFilmStore } from "@/store/homefilmStore";
+import { onMounted } from "vue";
 
 export default {
   name: "HomePage",
@@ -50,6 +52,19 @@ export default {
     ActorFilm,
     DirectorFilm,
   },
+  setup() {
+    const filmStore = useFilmStore(); 
+
+    // Charge les films une fois le composant monté
+    onMounted(() => {
+      filmStore.fetchFilms();
+    });
+
+    return { 
+      films: filmStore.films, // Retourne uniquement les films
+    };
+},
+
   data() {
     return {
       images: [
@@ -76,7 +91,6 @@ export default {
       ],
       currentImageIndex: 0, // Index actuel de l'image
       autoSlide: null, // Intervalle pour le défilement automatique
-      films: [], // Liste des films
       errorMessage: "", // Message d'erreur
     };
   },
@@ -94,24 +108,9 @@ export default {
       this.currentImageIndex =
         (this.currentImageIndex - 1 + this.images.length) % this.images.length;
     },
-    async fetchFilms() {
-      try {
-        const response = await fetch("https://flixtaneuse.onrender.com/api/films");
-        if (!response.ok) {
-          throw new Error(`Erreur HTTP ! Statut : ${response.status}`);
-        }
-        const data = await response.json();
-        this.films = data; // Récupère les films et les stocke
-      } catch (error) {
-        this.errorMessage =
-          "Erreur lors de la récupération des films : " + error.message;
-        console.error(error);
-      }
-    },
   },
   async created() {
     this.startAutoSlide(); // Lance l'auto-slide au démarrage
-    await this.fetchFilms(); // Récupère les films
   },
   beforeDestroy() {
     if (this.autoSlide) {
