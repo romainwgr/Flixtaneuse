@@ -10,7 +10,10 @@
           v-for="(image, index) in images"
           :key="index"
           class="slider-image"
-          :class="{ active: index === currentImageIndex, next: index === nextImageIndex }"
+          :class="{ 
+            active: index === currentImageIndex,
+            next: index === (currentImageIndex + 1) % images.length
+          }"
           :style="{ backgroundImage: `url(${image})` }"
         ></div>
       </div>
@@ -26,48 +29,35 @@
         :film="film"
       />
     </div>
+    
     <ActorFilm />
     <DirectorFilm />
 
-    <!-- Message d'erreur si la requête échoue -->
-    <p v-if="errorMessage">{{ errorMessage }}</p>
+    <p v-if="errorMessage" class="error-message">{{ errorMessage }}</p>
+    <Footer />
   </div>
-  <Footer />
 </template>
 
 
-<script>
+
+
+<script setup>
+import { ref, onMounted, onBeforeUnmount, computed } from 'vue';
+import { onBeforeRouteLeave } from 'vue-router';
 import FilmCard from "@/components/film/FilmCard.vue";
 import Footer from "@/components/Footer.vue";
 import ActorFilm from "@/components/home/ActorFilm.vue";
 import DirectorFilm from "@/components/home/DirectorFilm.vue";
 import { useFilmStore } from "@/store/homefilmStore";
-import { onMounted } from "vue";
 
-export default {
-  name: "HomePage",
-  components: {
-    FilmCard,
-    Footer,
-    ActorFilm,
-    DirectorFilm,
-  },
-  setup() {
-    const filmStore = useFilmStore(); 
+// Réactivité
+const filmStore = useFilmStore();
+const currentImageIndex = ref(0);
+const autoSlide = ref(null);
+const errorMessage = ref("");
 
-    // Charge les films une fois le composant monté
-    onMounted(() => {
-      filmStore.fetchFilms();
-    });
-
-    return { 
-      films: filmStore.films, // Retourne uniquement les films
-    };
-},
-
-  data() {
-    return {
-      images: [
+// Images statiques
+const images = ref([
         "https://alarencontreduseptiemeart.com/wp-content/uploads/2014/12/Citizen-Kane-3.jpg",
         "https://i.redd.it/the-shawshank-redemption-1994-v0-89w86dd84lpd1.jpg?width=1280&format=pjpg&auto=webp&s=8b1123e48aa750065503b7d5e91df3be66c92fb0",
         "https://media.vanityfair.fr/photos/60d34fef828a7f42e233bd09/16:9/w_1280,c_limit/vf_casablanca_slider_9411.jpeg",
@@ -88,37 +78,54 @@ export default {
         "https://assets.mubicdn.net/images/film/204/image-w1280.jpg?1607625735",
         "https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEg3ugX6nKTpjpuZZSj4fS4wgjhyNqB0aihQaSFAUyhzM3hIDRfkSAYHVBu5pgQbbSW-DAMZpGRXbHrG6YB3-NlI8G5YZdVFdvlURxPrVvcAxzTz6ZB9XXu_KOLPayFMjlXkzomj4ThfTuU/s1600/vlcsnap-2013-02-13-22h04m27s69.jpg",
         "https://laac-auvergnerhonealpes.org/wp-content/uploads/2017/03/OverlookHotelShining.png",
-      ],
-      currentImageIndex: 0, // Index actuel de l'image
-      autoSlide: null, // Intervalle pour le défilement automatique
-      errorMessage: "", // Message d'erreur
-    };
-  },
-  methods: {
-    startAutoSlide() {
-      if (this.autoSlide) {
-        clearInterval(this.autoSlide);
-      }
-      this.autoSlide = setInterval(this.nextImage, 7500); // Défile toutes les 7,5 secondes
-    },
-    nextImage() {
-      this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-    },
-    previousImage() {
-      this.currentImageIndex =
-        (this.currentImageIndex - 1 + this.images.length) % this.images.length;
-    },
-  },
-  async created() {
-    this.startAutoSlide(); // Lance l'auto-slide au démarrage
-  },
-  beforeDestroy() {
-    if (this.autoSlide) {
-      clearInterval(this.autoSlide); // Nettoie l'intervalle avant la destruction du composant
-    }
-  },
+      
+]);
+
+// Computed
+const films = computed(() => filmStore.films);
+
+// Cycle de vie
+onMounted(() => {
+  filmStore.fetchFilms().catch(() => {
+    errorMessage.value = "Erreur de chargement des films";
+  });
+  startAutoSlide();
+});
+
+
+onBeforeRouteLeave(() => {
+  filmStore.markForRefresh();
+});
+
+// Méthodes
+const startAutoSlide = () => {
+  stopAutoSlide();
+  autoSlide.value = setInterval(nextImage, 7500);
 };
+
+const stopAutoSlide = () => {
+  if (autoSlide.value) {
+    clearInterval(autoSlide.value);
+    autoSlide.value = null;
+  }
+};
+
+const nextImage = () => {
+  currentImageIndex.value = (currentImageIndex.value + 1) % images.value.length;
+};
+
+const previousImage = () => {
+  currentImageIndex.value = 
+    (currentImageIndex.value - 1 + images.value.length) % images.value.length;
+};
+
+// Nettoyage
+onBeforeUnmount(() => {
+  stopAutoSlide();
+  filmStore.$reset();
+});
 </script>
+
 
 <style >
 .image-slider {

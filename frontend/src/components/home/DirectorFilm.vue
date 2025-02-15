@@ -54,6 +54,7 @@
 <script>
 import FilmCard from "@/components/film/FilmCard.vue";
 import { useFilmStore } from '@/store/homefilmStore';
+import { computed, onMounted } from 'vue';
 
 export default {
     name: "DirectorFilm",
@@ -63,17 +64,20 @@ export default {
     setup() {
       const filmStore = useFilmStore();
 
-      // Charger les données des acteurs au montage
-      filmStore.fetchDirectorsFilms();
+      // Charger les réalisateurs au montage
+      onMounted(async () => {
+        await filmStore.fetchDirectorsFilms();
+      });
 
       return {
-        directors: filmStore.directors, // Liste des acteurs
-        loading: filmStore.loading, // Indicateur de chargement
-        error: filmStore.errorMessage, // Gestion des erreurs
+        directors: computed(() => filmStore.directors), 
+        loading: computed(() => filmStore.loading), 
+        error: computed(() => filmStore.errorMessage), 
       };
     },
-  };
+};
 </script>
+
 <style scoped>
 
 </style>

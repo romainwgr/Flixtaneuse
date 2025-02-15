@@ -8,7 +8,7 @@ const Director = require('../models/Director'); // Assurez également l'import d
 // Pour la page d'accueil
 const getAllFilms = async (req, res) => {
     try {
-        const films = await Film.find().limit(100); // Limite à 100 films
+        const films = await Film.find().limit(20); // Limite à 100 films
         res.json(films);
     } catch (err) {
         res.status(500).json({ message: 'Une erreur est survenue lors de la récupération des films.' });
