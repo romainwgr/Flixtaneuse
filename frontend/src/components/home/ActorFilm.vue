@@ -53,6 +53,7 @@
 <script>
   import FilmCard from "@/components/film/FilmCard.vue";
   import { useFilmStore } from '@/store/homefilmStore';
+  import { computed, onMounted } from 'vue';
 
   export default {
     name: "ActorFilm",
@@ -62,13 +63,14 @@
     setup() {
       const filmStore = useFilmStore();
 
-      // Charger les données des acteurs au montage
-      filmStore.fetchActorsFilms();
+      onMounted(async () => {
+        await filmStore.fetchActorsFilms();
+      });
 
       return {
-        actors: filmStore.actors, // Liste des acteurs
-        loading: filmStore.loading, // Indicateur de chargement
-        error: filmStore.errorMessage, // Gestion des erreurs
+        actors: computed(() => filmStore.actors), 
+        loading: computed(() => filmStore.loading), 
+        error: computed(() => filmStore.errorMessage), 
       };
     },
   };
