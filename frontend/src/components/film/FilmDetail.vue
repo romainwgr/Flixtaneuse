@@ -120,7 +120,7 @@ export default {
         if (!token) return;
 
         if (this.isLiked) {
-          await fetch(`https://flixtaneuse.onrender.com/api/likes/${filmId}/unlike`, {
+          await fetch(`http://13.61.150.201:3000/api/likes/${filmId}/unlike`, {
             method: "DELETE",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -128,7 +128,7 @@ export default {
           });
           this.isLiked = false;
         } else {
-          await fetch(`https://flixtaneuse.onrender.com/api/likes/${filmId}/like`, {
+          await fetch(`http://13.61.150.201:3000/api/likes/${filmId}/like`, {
             method: "POST",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -154,7 +154,7 @@ export default {
 
         if (this.isInWatchLater) {
           // Route pour retirer un film de la liste "Regarder Plus Tard"
-          await fetch(`https://flixtaneuse.onrender.com/api/watchlater/${filmId}/removeFromWatchLater`, {
+          await fetch(`http://13.61.150.201:3000/api/watchlater/${filmId}/removeFromWatchLater`, {
             method: "DELETE",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -163,7 +163,7 @@ export default {
           this.isInWatchLater = false;
         } else {
           // Route pour ajouter un film à la liste "Regarder Plus Tard"
-          await fetch(`https://flixtaneuse.onrender.com/api/watchlater/${filmId}/addToWatchLater`, {
+          await fetch(`http://13.61.150.201:3000/api/watchlater/${filmId}/addToWatchLater`, {
             method: "POST",
             headers: {
               Authorization: `Bearer ${token}`,
@@ -188,7 +188,7 @@ export default {
         if (!token) return;
 
         // Envoyer la note à l'API
-        const response = await fetch(`https://flixtaneuse.onrender.com/api/ratings/${filmId}/rate`, {
+        const response = await fetch(`http://13.61.150.201:3000/api/ratings/${filmId}/rate`, {
           method: "POST",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -218,7 +218,7 @@ export default {
         if (!token) return;
 
         // Envoyer une requête DELETE pour supprimer la notation
-        const response = await fetch(`https://flixtaneuse.onrender.com/api/ratings/${filmId}/deleteRating`, {
+        const response = await fetch(`http://13.61.150.201:3000/api/ratings/${filmId}/deleteRating`, {
           method: "DELETE",
           headers: {
             Authorization: `Bearer ${token}`,
@@ -247,14 +247,14 @@ export default {
       this.isAuthenticated = !!token;
 
       // Récupérer les détails du film depuis l'API
-      const response = await fetch(`https://flixtaneuse.onrender.com/api/films/${filmId}`);
+      const response = await fetch(`http://13.61.150.201:3000/api/films/${filmId}`);
       if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
 
       const data = await response.json();
 
       // Vérifier si le film est aimé par l'utilisateur
       if (this.isAuthenticated) {
-        const islikedReq = await fetch(`https://flixtaneuse.onrender.com/api/likes/${filmId}/isliked`, {
+        const islikedReq = await fetch(`http://13.61.150.201:3000/api/likes/${filmId}/isliked`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -265,7 +265,7 @@ export default {
 
       // Vérifier si le film est dans la liste "Regarder Plus Tard"
       if (this.isAuthenticated) {
-        const isInWatchLaterReq = await fetch(`https://flixtaneuse.onrender.com/api/watchlater/${filmId}/isInWatchLater`, {
+        const isInWatchLaterReq = await fetch(`http://13.61.150.201:3000/api/watchlater/${filmId}/isInWatchLater`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -276,7 +276,7 @@ export default {
 
       // Récupérer la note de l'utilisateur pour ce film
       if (this.isAuthenticated) {
-        const userRatingReq = await fetch(`https://flixtaneuse.onrender.com/api/ratings/${filmId}/userRating`, {
+        const userRatingReq = await fetch(`http://13.61.150.201:3000/api/ratings/${filmId}/userRating`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -287,13 +287,13 @@ export default {
 
       // Récupérer les réalisateurs et acteurs du film
       const actorRequests = data.actors.map((actor) =>
-        fetch(`https://flixtaneuse.onrender.com/api/actors/${actor._id}`)
+        fetch(`http://13.61.150.201:3000/api/actors/${actor._id}`)
           .then((res) => res.json())
           .catch(() => null)
       );
 
       const directorRequests = data.directors.map((director) =>
-        fetch(`https://flixtaneuse.onrender.com/api/directors/${director._id}`)
+        fetch(`http://13.61.150.201:3000/api/directors/${director._id}`)
           .then((res) => res.json())
           .catch(() => null)
       );

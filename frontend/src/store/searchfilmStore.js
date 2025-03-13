@@ -54,7 +54,7 @@ export const useSearchStore = defineStore('searchStore', {
         const token = localStorage.getItem("token");
 
         const response = await fetch(
-          `https://flixtaneuse.onrender.com/api/recherche/search?title=${encodeURIComponent(
+          `http://13.61.150.201:3000/api/recherche/search?title=${encodeURIComponent(
             this.searchQuery
           )}&limit=${this.currentLimit}`,
           {

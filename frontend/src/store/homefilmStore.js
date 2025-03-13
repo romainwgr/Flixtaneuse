@@ -31,7 +31,7 @@ export const useFilmStore = defineStore('filmStore', {
       try {
         if (force || this.shouldRefresh || this.films.length === 0) {
           this.loading = true;
-          const response = await fetch('https://flixtaneuse.onrender.com/api/films');
+          const response = await fetch('http://13.61.150.201:3000/api/films');
           
           if (!response.ok) throw new Error(`Erreur HTTP : ${response.status}`);
           
@@ -49,7 +49,7 @@ export const useFilmStore = defineStore('filmStore', {
     async fetchActorsFilms(force = false) {
       await this.fetchResources({
         resource: 'actors',
-        url: 'https://flixtaneuse.onrender.com/api/actors/famous',
+        url: 'http://13.61.150.201:3000/api/actors/famous',
         force,
       });
     },
@@ -57,7 +57,7 @@ export const useFilmStore = defineStore('filmStore', {
     async fetchDirectorsFilms(force = false) {
       await this.fetchResources({
         resource: 'directors',
-        url: 'https://flixtaneuse.onrender.com/api/directors/famous',
+        url: 'http://13.61.150.201:3000/api/directors/famous',
         force,
       });
     },
