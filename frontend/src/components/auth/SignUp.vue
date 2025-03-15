@@ -69,7 +69,7 @@ export default {
   methods: {
     async handleSignUp() {
       try {
-        const response = await fetch("http://13.61.150.201:3000/api/users/new", {
+        const response = await fetch("https://flixtaneuse-api.space/api/users/new", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
