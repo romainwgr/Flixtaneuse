@@ -161,7 +161,7 @@ export default {
       }
 
       try {
-        const response = await fetch("http://13.61.150.201:3000/api/users/profile/modif-user", {
+        const response = await fetch("https://flixtaneuse-api.space/api/users/profile/modif-user", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -204,7 +204,7 @@ export default {
       const token = localStorage.getItem("token");
 
       // Récupération des films aimés
-      const likedResponse = await fetch("http://13.61.150.201:3000/api/users/profile/liked-films", {
+      const likedResponse = await fetch("https://flixtaneuse-api.space/api/users/profile/liked-films", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -218,7 +218,7 @@ export default {
       this.likedFilms = await likedResponse.json();
 
       // Récupération des films à regarder plus tard
-      const watchLaterResponse = await fetch("http://13.61.150.201:3000/api/users/profile/watch-later", {
+      const watchLaterResponse = await fetch("https://flixtaneuse-api.space/api/users/profile/watch-later", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
@@ -232,7 +232,7 @@ export default {
       this.watchLaterFilms = await watchLaterResponse.json();
 
       // Récupération des films notés
-      const ratedResponse = await fetch("http://13.61.150.201:3000/api/users/profile/rated-films", {
+      const ratedResponse = await fetch("https://flixtaneuse-api.space/api/users/profile/rated-films", {
         method: "GET",
         headers: {
           Authorization: `Bearer ${token}`,
