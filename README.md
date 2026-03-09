@@ -1,4 +1,9 @@
 # Flixtaneuse 🎬
+# ⚠️ Projet hors ligne
+
+> **Note :** Ce projet n'est plus hébergé en ligne. L'instance AWS (Backend/API) et le déploiement Vercel ont été arrêtés le 9 mars 2026 pour clôturer la période d'essai gratuite. 
+
+> Le code reste disponible ici à des fins de consultation ou pour un déploiement local.
 
 Flixtaneuse est une plateforme intuitive et moderne pour les passionnés de cinéma. Conçu avec Vue.js, le site offre une expérience utilisateur fluide pour explorer, rechercher et organiser des films.
 
